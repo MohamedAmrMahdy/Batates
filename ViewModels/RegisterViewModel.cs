@@ -1,4 +1,5 @@
 ﻿using Batates.Areas.Identity.Pages.Account;
+using Batates.Data;
 using Batates.Models;
 using Batates.Models.Enums;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,7 @@ namespace Batates.ViewModels
 {
     public class RegisterViewModel : RegisterModel
     {
-        public RegisterViewModel(UserManager<ApplicationUser> userManager, IUserStore<ApplicationUser> userStore, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender) : base(userManager, userStore, signInManager, logger, emailSender)
+        public RegisterViewModel(UserManager<ApplicationUser> userManager, IUserStore<ApplicationUser> userStore, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender, ApplicationDbContext applicationDbContext) : base(userManager, userStore, signInManager, logger, emailSender, applicationDbContext)
         {
         }
 
