@@ -17,10 +17,14 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="text-dark" asp-area="Identity" asp-page="/Account/Register">
+            <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-person-add"></i>&nbsp;Register</button>
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="text-dark" asp-area="Identity" asp-page="/Account/Login">
+            <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-person-bounding-box"></i>&nbsp;Login</button>
+        </a>
     </li>
 }
 </ul>

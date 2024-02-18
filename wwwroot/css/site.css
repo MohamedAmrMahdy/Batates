@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.layout_header_logo {
+    max-height: 46px;
+}
+.layout_header_title {
+    font-family: cursive;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #373737;
+}
+}
