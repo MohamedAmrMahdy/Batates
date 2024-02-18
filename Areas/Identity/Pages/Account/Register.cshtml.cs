@@ -32,6 +32,7 @@ namespace Batates.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -39,7 +40,9 @@ namespace Batates.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext applicationDbContext)
+            ApplicationDbContext applicationDbContext,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -48,6 +51,7 @@ namespace Batates.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _context = applicationDbContext;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -107,6 +111,10 @@ namespace Batates.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if(!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
+            {
+                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -125,6 +133,7 @@ namespace Batates.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                   await _userManager.AddToRoleAsync(user, SD.Role_Customer);
                     _logger.LogInformation("User created a new account with password.");
 
                     // Create new Cart
