@@ -29,6 +29,7 @@ namespace Batates
             // Reposositories
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 
             builder.Services.AddAuthentication().AddMicrosoftAccount(options =>
