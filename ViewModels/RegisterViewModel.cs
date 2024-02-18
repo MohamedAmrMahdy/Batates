@@ -9,7 +9,16 @@ namespace Batates.ViewModels
 {
     public class RegisterViewModel : RegisterModel
     {
-        public RegisterViewModel(UserManager<ApplicationUser> userManager, IUserStore<ApplicationUser> userStore, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender, ApplicationDbContext applicationDbContext) : base(userManager, userStore, signInManager, logger, emailSender, applicationDbContext)
+        public RegisterViewModel(
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger,
+            IEmailSender emailSender,
+            ApplicationDbContext applicationDbContext,
+            RoleManager<IdentityRole> roleManager
+
+            )
+            : base(userManager, userStore, signInManager, logger, emailSender, applicationDbContext, roleManager)
         {
         }
 
@@ -18,4 +27,5 @@ namespace Batates.ViewModels
         public string? ContactNo { get; set; }
         public string? Address { get; set; }
     }
+
 }
