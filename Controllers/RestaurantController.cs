@@ -19,6 +19,12 @@ namespace Batates.Controllers
             var result = repo.GetAll();
             return View(result);
         }
+        [HttpGet]
+        public IActionResult ViewAll()
+        {
+            var result = repo.GetAll();
+            return View(result);
+        }
 
         [HttpGet]
         public IActionResult Details(int id)

@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Batates.Models.Restaurant>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles
+{
+    <style type="text/css">
+     
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .restaurant {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px;
+            padding: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            width: 300px;
+        }
+
+            .restaurant:hover {
+                transform: translateY(-5px);
+            }
+
+            .restaurant img {
+                width: 100%;
+                height: auto;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+
+            .restaurant h2 {
+                margin: 15px 0 10px;
+                font-size: 24px;
+                color: #333;
+            }
+
+            .restaurant p {
+                margin-bottom: 15px;
+                color: #666;
+            }
+    </style>
+}
+
+<h1>list Resturants</h1>
+
+<div class="container">
+@foreach (var item in Model) {
+      
+
+        <div class="restaurant">
+            <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/7e75de0c-c7e5-48ad-b1ef-f90a80ad44da.jpg" class="productImage shoeImg"></img>
+            <div class="size shoeSize">
+            </div>
+            <div class="price shoePrice">
+                <h4>Contact</h4>
+                <span>@Html.DisplayFor(modelItem => item.ContactNo)</span>
+            </div>
+            <h2 class="productName shoeName">
+                @Html.DisplayFor(modelItem => item.Name)
+            </h2>
+            <p>Description of Restaurant 1 goes here. It can be a bit longer to demonstrate the layout.</p>
+        </div>
+
+
+
+        <div class="restaurant">
+            <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/7e75de0c-c7e5-48ad-b1ef-f90a80ad44da.jpg" class="productImage shoeImg"></img>
+            <div class="size shoeSize">
+            </div>
+            <div class="price shoePrice">
+                <h4>Contact</h4>
+                <span>@Html.DisplayFor(modelItem => item.ContactNo)</span>
+            </div>
+            <h2 class="productName shoeName">
+                @Html.DisplayFor(modelItem => item.Name)
+            </h2>
+            <p>Description of Restaurant 1 goes here. It can be a bit longer to demonstrate the layout.</p>
+        </div>
+
+
+        <div class="restaurant">
+            <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/7e75de0c-c7e5-48ad-b1ef-f90a80ad44da.jpg" class="productImage shoeImg"></img>
+            <div class="size shoeSize">
+            </div>
+            <div class="price shoePrice">
+                <h4>Contact</h4>
+                <span>@Html.DisplayFor(modelItem => item.ContactNo)</span>
+            </div>
+            <h2 class="productName shoeName">
+                @Html.DisplayFor(modelItem => item.Name)
+            </h2>
+            <p>Description of Restaurant 1 goes here. It can be a bit longer to demonstrate the layout.</p>
+        </div>
+
+        
+        <div class="restaurant">
+            <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/7e75de0c-c7e5-48ad-b1ef-f90a80ad44da.jpg" class="productImage shoeImg"></img>
+            <div class="size shoeSize">
+            </div>
+            <div class="price shoePrice">
+                <h4>Contact</h4>
+                <span>@Html.DisplayFor(modelItem => item.ContactNo)</span>
+            </div>
+            <h2 class="productName shoeName">
+                @Html.DisplayFor(modelItem => item.Name)
+            </h2>
+            <p>Description of Restaurant 1 goes here. It can be a bit longer to demonstrate the layout.</p>
+        </div>
+
+
+        <div class="restaurant">
+            <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/7e75de0c-c7e5-48ad-b1ef-f90a80ad44da.jpg" class="productImage shoeImg"></img>
+            <div class="size shoeSize">
+            </div>
+            <div class="price shoePrice">
+                <h4>Contact</h4>
+                <span>@Html.DisplayFor(modelItem => item.ContactNo)</span>
+            </div>
+            <h2 class="productName shoeName">
+                @Html.DisplayFor(modelItem => item.Name)
+            </h2>
+            <p>Description of Restaurant 1 goes here. It can be a bit longer to demonstrate the layout.</p>
+        </div>
+
+}
+<div/>
+
+
+
+   
