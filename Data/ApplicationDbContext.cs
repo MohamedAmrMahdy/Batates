@@ -64,5 +64,8 @@ namespace Batates.Data
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
+
+        public virtual DbSet<Restaurant> Restaurant { get; set; }
+
     }
 }

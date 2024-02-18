@@ -1,5 +1,7 @@
 using Batates.Data;
 using Batates.Models;
+using Batates.Repo.IRepo;
+using Batates.Repo.Repo;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,10 @@ namespace Batates
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            // Reposositories
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 
 
             builder.Services.AddAuthentication().AddMicrosoftAccount(options =>
