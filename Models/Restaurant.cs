@@ -22,7 +22,7 @@ namespace Batates.Models
         public State State { get; set; }
         [Required]
         public string ContactNo { get; set; }
-        public virtual List<Product> Products {  get; set; }
-        public virtual List<Category> Categories { get; set; }
+        public virtual List<Product>? Products { get; set; }
+        public virtual List<Category>? Categories { get; set; }
     }
 }
