@@ -1,19 +1,30 @@
 ﻿using Batates.Data;
 using Batates.Models;
+using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Batates.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public ProductController(ApplicationDbContext context)
+        private readonly IProductRepository repo;
+
+        public ProductController(IProductRepository Repo)
         {
-            _context = context;
+            this.repo = Repo;
         }
-        [Route("/Product/{id?}")]
-        public async Task<IActionResult> Index(int? id)
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            var result = repo.GetAll();
+            return View(result);
+        }
+
+        public IActionResult Details(int? id)
         {
             Product product = new Product()
             {
@@ -25,7 +36,7 @@ namespace Batates.Controllers
             };
             if (id != null)
             {
-                Product dbProduct = await _context.Products.FirstOrDefaultAsync(p => p.ID == id);
+                Product dbProduct = repo.Get(p => p.ID == id, p => p.Restaurant);
                 if (dbProduct != null)
                 {
                     dbProduct.Description = dbProduct.Description;
@@ -33,6 +44,65 @@ namespace Batates.Controllers
                 }
             }
             return View(product);
+        }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.Create(product);
+                return RedirectToAction("Details", new { id = product.ID });
+            }
+
+            return View(product);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View(repo.Get(p => p.ID == id, p => p.Restaurant));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, Product product)
+        {
+            try
+            {
+                repo.Update(product);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            return View(repo.Get(p => p.ID == id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Product product)
+        {
+            try
+            {
+                repo.Delete(product);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

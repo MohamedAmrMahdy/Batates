@@ -1,0 +1,22 @@
+﻿@model Batates.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h1>Product Details</h1>
+<div class="card">
+    <h3 class="card-header">Value Meals</h3>
+
+    <partial name="_ProductPartial" model="Model" />
+</div>
+
+<style>
+    .card-body:hover {
+        background: #f1f1f1;
+    }
+    .product_image{
+        max-height: 128px;
+        width:auto;
+    }
+</style>
