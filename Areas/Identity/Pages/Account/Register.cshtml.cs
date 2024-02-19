@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Batates.Data;
+using Batates.Models.Enums;
+using System.ComponentModel;
 
 namespace Batates.Areas.Identity.Pages.Account
 {
@@ -106,12 +108,35 @@ namespace Batates.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public Gender Gender { get; set; }
+
+            [Required(ErrorMessage ="the street address required")]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DisplayName("Street Address ")]
+            public string StreetAddress { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            public string City { get; set; }
+
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            public string State { get; set; }
+
+            [Required]
+            [Phone]
+            [DisplayName("Phone Number")]
+            public string PhoneNumber { get; set; }
+
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-    
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -126,21 +151,28 @@ namespace Batates.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.PhoneNumber=Input.PhoneNumber;
+                user.Gender = Input.Gender;
+                user.City=Input.City;
+                user.StreetAddress=Input.StreetAddress; 
+                user.State=Input.State;
+                Cart newCart = new Cart() { ApplicationUser = user };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                   await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
                     _logger.LogInformation("User created a new account with password.");
 
+                  // Not need Do ubove
                     // Create new Cart
-                    Cart newCart = new Cart() { ApplicationUser = user };
-                    _context.Carts.Add(newCart);
-                    await _context.SaveChangesAsync();
-
-                    // Assign Cart to new created user
-                    user.CartID = newCart.ID;
-                    await _userManager.UpdateAsync(user);
+                    //Cart newCart = new Cart() { ApplicationUser = user };
+                    //_context.Carts.Add(newCart);
+                    //await _context.SaveChangesAsync();
+                    //// Assign Cart to new created user
+                    //user.CartID = newCart.ID;
+                    //await _userManager.UpdateAsync(user);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
