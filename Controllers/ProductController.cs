@@ -20,7 +20,7 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var result = repo.GetAll();
+            var result = repo.GetAll(p=>p.Restaurant);
             return View(result);
         }
 
