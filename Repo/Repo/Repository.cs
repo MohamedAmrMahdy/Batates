@@ -23,7 +23,6 @@ namespace Batates.Repo.Repo
         {
             DbSet.Add(item);
             return DB.SaveChanges();
-
         }
 
         public int Delete(T item)

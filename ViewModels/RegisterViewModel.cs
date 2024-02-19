@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Batates.ViewModels
 {
-    public class RegisterViewModel : RegisterModel
+    public class RegisterViewModel /*: RegisterModel*/
     {
         public RegisterViewModel(
             UserManager<ApplicationUser> userManager,
@@ -18,7 +18,7 @@ namespace Batates.ViewModels
             RoleManager<IdentityRole> roleManager
 
             )
-            : base(userManager, userStore, signInManager, logger, emailSender, applicationDbContext, roleManager)
+            //: base(userManager, userStore, signInManager, logger, emailSender, applicationDbContext, roleManager)
         {
         }
 
