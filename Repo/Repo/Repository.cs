@@ -33,6 +33,34 @@ namespace Batates.Repo.Repo
         }
 
         public T Get(Expression<Func<T, bool>> predict ) => DbSet.FirstOrDefault(predict)!;
+        public T Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = DbSet.Where(predicate);
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query.FirstOrDefault();
+        }
         public IEnumerable<T> GetAll() => DbSet.ToList()!;
+        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = DbSet;
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query.ToList()!;
+        }
     }
 }
