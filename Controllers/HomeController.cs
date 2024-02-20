@@ -2,6 +2,7 @@ using Batates.Models;
 using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace Batates.Controllers
 {
@@ -32,8 +33,16 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult Category(int id)
         {
+            ViewBag.category = CategoryRepo.Get(c=>c.ID == id);
             return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
         }
+
+
+        // In HomeController.cs
+
+        // In HomeController.cs
+
+
 
         // https://www.elmenus.com/cairo/shawerma-el-reem-lnmg 
         // +
