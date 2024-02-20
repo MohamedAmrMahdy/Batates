@@ -1,26 +1,56 @@
 using Batates.Models;
+using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace Batates.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<HomeController> _logger;
+        private readonly IProductRepository ProductRepo;
+        private readonly ICategoryRepository CategoryRepo;
+        private readonly IRestaurantRepository RestaurantRepo;
+
+        public HomeController(ILogger<HomeController> logger, IProductRepository productRepo, ICategoryRepository categoryRepo, IRestaurantRepository restaurantRepo)
         {
             _logger = logger;
+            ProductRepo = productRepo;
+            CategoryRepo = categoryRepo;
+            RestaurantRepo = restaurantRepo;
         }
 
+        //Home Page - View All Categories + Top Rated Restaurants
+        // https://startbootstrap.com/template/business-frontpage
         public IActionResult Index()
         {
-            return View();
+            return View(CategoryRepo.GetAll());
         }
 
-        public IActionResult Privacy()
+        // https://startbootstrap.com/template/small-business
+        [HttpGet]
+        public IActionResult Category(int id)
         {
-            return View();
+            ViewBag.category = CategoryRepo.Get(c=>c.ID == id);
+            return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
+        }
+
+
+        // In HomeController.cs
+
+        // In HomeController.cs
+
+
+
+        // https://www.elmenus.com/cairo/shawerma-el-reem-lnmg 
+        // +
+        // Product Partial in Product Views
+        public IActionResult Restaurant(int id)
+        {
+
+            return View(ProductRepo.GetAll(p => p.RestaurantID == id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

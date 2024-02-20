@@ -84,7 +84,7 @@ namespace Batates.Controllers
             var restaurant = repo.Get(c => c.ID == id);
             return View(restaurant);
         }
-
+        //hello
         // POST: CategoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
