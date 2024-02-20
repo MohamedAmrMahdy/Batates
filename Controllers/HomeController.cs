@@ -33,18 +33,15 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult Category(int id)
         {
-<<<<<<< HEAD
+
             return View(RestaurantRepo.GetAll(r => r.Categories).Where(r => r.Categories.Any(cat => cat.ID == id)));
-=======
             ViewBag.category = CategoryRepo.Get(c=>c.ID == id);
             return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
->>>>>>> origin/master
+
         }
 
 
-        // In HomeController.cs
-
-        // In HomeController.cs
+ 
 
 
 
@@ -53,6 +50,7 @@ namespace Batates.Controllers
         // Product Partial in Product Views
         public IActionResult Restaurant(int id)
         {
+
             ViewBag.Restaurant = RestaurantRepo.Get(r=>r.ID == id);
             return View(ProductRepo.GetAll().Where(p=>p.RestaurantID == id));
         }

@@ -4,35 +4,161 @@
     ViewData["Title"] = "Batates - Homepage";
 }
 
-<h1>Homepage</h1>
+<header class="bg-dark py-5">
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+                <div class="text-center my-5">
+                    <h1 class="display-5 fw-bolder text-white mb-2">Present your business in a whole new way</h1>
+                    <p class="lead text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageURL)
-            </td>
-        </tr>
+<div class="category-container">
+    @foreach (var item in Model)
+    {
+        <a href="">
+            <div class="category">
+                <img src="@item.ImageURL" alt="Category Image">
+                <h2>@item.Name</h2>
+                <p>@item.Description</p>
+            </div>
+        </a>
+
+
+       
+
+    }
+</div>
+<style>
+   body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-    </tbody>
-</table>
+header.bg-dark {
+  background-color: #343a40; /* Dark background color */
+  padding-top: 5rem; /* Top padding */
+  padding-bottom: 5rem; /* Bottom padding */
+  text-align: center; /* Center text */
+  color: #ffffffd1; /* Font color */
+}
+
+header.bg-dark .container {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  padding-left: 50px; /* Padding from left */
+  padding-right: 50px; /* Padding from right */
+}
+
+header.bg-dark h1 {
+  font-size: 2.5rem; /* Header 1 font size */
+}
+
+header.bg-dark p {
+  font-size: 1.25rem; /* Paragraph font size */
+  margin-top: 20px; /* Add margin from the top */
+  margin-bottom: 20px; /* Add margin from the bottom */
+}
+
+header.bg-dark .btn {
+  border-radius: 30px; /* Rounded corners */
+  padding: 12px 30px; /* Padding */
+  font-size: 1.1rem; /* Button font size */
+  text-transform: uppercase; /* Uppercase text */
+  font-weight: bold; /* Bold font weight */
+  transition: all 0.3s ease; /* Smooth transition */
+  cursor: pointer; /* Cursor style */
+  text-decoration: none; /* Remove default underline */
+  display: inline-block; /* Display as inline-block */
+  margin: 10px; /* Margin */
+  border: none; /* Remove border */
+}
+
+header.bg-dark .btn-primary {
+  background: linear-gradient(to right, #4e73df, #224abe); /* Gradient background */
+  color: #ffffffa4; /* Button text color */
+}
+
+header.bg-dark .btn-primary:hover {
+  transform: translateY(-3px); /* Move button up on hover */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+}
+
+header.bg-dark .btn-outline-light {
+  color: #f8f9fab6; /* Light button text color */
+  border: 2px solid #f8f9fac4; /* Light button border */
+  background-color: transparent; /* Transparent background */
+}
+
+header.bg-dark .btn-outline-light:hover {
+  color: #212529; /* Light button hover text color */
+  background-color: #f8f9fa; /* Light button hover background color */
+}
+
+
+
+
+
+
+
+
+
+/* Grid container for categories */
+.category-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); /* Adjust the size of categories */
+  grid-gap: 20px; /* Adjust the gap between categories */
+  margin: 20px; /* Add margin around the grid */
+}
+
+/* Category item */
+.category {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Add your additional styling here */
+.category img {
+  max-width: 100%;
+  height: auto;
+}
+
+.category:hover {
+  transform: scale(1.1); /* Scale up by 10% */
+}
+
+/* Responsive layout for smaller screens */
+@@media (max-width: 1200px) {
+  .category-container {
+      grid-template-columns: repeat(auto-fill, minmax(25%, 1fr)); /* Adjust the size of categories for smaller screens */
+  }
+}
+
+@@media (max-width: 768px) {
+  .category-container {
+      grid-template-columns: repeat(auto-fill, minmax(50%, 1fr)); /* Adjust the size of categories for even smaller screens */
+  }
+}
+
+/* Limiting categories to 5 per row */
+@@media (min-width: 1200px) {
+  .category-container {
+      max-width: 1000px; /* Set a maximum width */
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
+
+</style>
