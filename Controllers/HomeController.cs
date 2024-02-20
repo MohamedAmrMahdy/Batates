@@ -32,7 +32,7 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult Category(int id)
         {
-            return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
+            return View(RestaurantRepo.GetAll(r => r.Categories).Where(r => r.Categories.Any(cat => cat.ID == id)));
         }
 
         // https://www.elmenus.com/cairo/shawerma-el-reem-lnmg 
@@ -40,8 +40,8 @@ namespace Batates.Controllers
         // Product Partial in Product Views
         public IActionResult Restaurant(int id)
         {
-
-            return View(ProductRepo.GetAll(p => p.RestaurantID == id));
+            ViewBag.Restaurant = RestaurantRepo.Get(r=>r.ID == id);
+            return View(ProductRepo.GetAll().Where(p=>p.RestaurantID == id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
