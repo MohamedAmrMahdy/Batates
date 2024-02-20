@@ -22,17 +22,22 @@ namespace Batates.Controllers
         }
 
         //Home Page - View All Categories + Top Rated Restaurants
+        // https://startbootstrap.com/template/business-frontpage
         public IActionResult Index()
         {
             return View(CategoryRepo.GetAll());
         }
 
+        // https://startbootstrap.com/template/small-business
         [HttpGet]
         public IActionResult Category(int id)
         {
             return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
         }
 
+        // https://www.elmenus.com/cairo/shawerma-el-reem-lnmg 
+        // +
+        // Product Partial in Product Views
         public IActionResult Restaurant(int id)
         {
 
