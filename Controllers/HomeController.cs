@@ -34,13 +34,11 @@ namespace Batates.Controllers
         public IActionResult Category(int id)
         {
             ViewBag.category = CategoryRepo.Get(c=>c.ID == id);
-            return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
+            return View(RestaurantRepo.GetAll(r => r.Categories).Where(r => r.Categories.Any(cat => cat.ID == id)));
         }
 
 
-        // In HomeController.cs
-
-        // In HomeController.cs
+ 
 
 
 
@@ -50,7 +48,8 @@ namespace Batates.Controllers
         public IActionResult Restaurant(int id)
         {
 
-            return View(ProductRepo.GetAll(p => p.RestaurantID == id));
+            ViewBag.Restaurant = RestaurantRepo.Get(r=>r.ID == id);
+            return View(ProductRepo.GetAll().Where(p=>p.RestaurantID == id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -48,20 +48,6 @@ namespace Batates.Repo.Repo
         }
 
         public IEnumerable<T> GetAll() => DbSet.ToList()!;
-        public IEnumerable<T> GetAll(Func<T, bool> predict, params Expression<Func<T, object>>[] includes)
-        {
-            IQueryable<T> query = DbSet;
-
-            if (includes != null)
-            {
-                foreach (var include in includes)
-                {
-                    query = query.Include(include);
-                }
-            }
-
-            return query.Where(predict).ToList()!;
-        }
         public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = DbSet;
