@@ -37,10 +37,6 @@ namespace Batates.Controllers
         }
 
 
- 
-
-
-
         // https://www.elmenus.com/cairo/shawerma-el-reem-lnmg 
         // +
         // Product Partial in Product Views

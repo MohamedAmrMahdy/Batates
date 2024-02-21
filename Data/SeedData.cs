@@ -5,6 +5,11 @@ namespace Batates.Data
 {
     public static class SeedData
     {
+        //static Category C1 = new Category() { ID = 1, Name = "Italian", Description = "Indulge in the rich flavors and culinary heritage of Italy with our authentic Italian cuisine, where every dish is crafted with passion and tradition to transport you to the sun-kissed hills of Tuscany and the bustling streets of Naples.", ImageURL = "https://dummyjson.com/image/512x512/?text=Italian" };
+        //static Category C2 = new Category() { ID = 2, Name = "Mexican", Description = "Experience the vibrant and spicy flavors of Mexico with our tantalizing Mexican cuisine, from sizzling fajitas to mouthwatering tacos, guaranteed to ignite your taste buds with every bite.", ImageURL = "https://dummyjson.com/image/512x512/?text=Mexican" };
+        //static Category C3 = new Category() { ID = 3, Name = "Japanese", Description = "Embark on a culinary journey to Japan with our exquisite Japanese cuisine, where tradition meets innovation in every carefully crafted sushi roll, flavorful ramen bowl, and delicate tempura dish.", ImageURL = "https://dummyjson.com/image/512x512/?text=Japanese" };
+        //static Category C4 = new Category() { ID = 4, Name = "Indian", Description = "Delight your senses with the aromatic spices and diverse flavors of India through our authentic Indian cuisine, featuring savory curries, aromatic biryanis, and decadent desserts that will transport you to the bustling streets of Mumbai and the serene backwaters of Kerala.", ImageURL = "https://dummyjson.com/image/512x512/?text=Indian" };
+
         public static List<Category> CategoryList()
         {
             List<Category> tempList = new List<Category>()
