@@ -2,6 +2,7 @@
 using Batates.Models;
 using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Intrinsics.Arm;
@@ -11,16 +12,20 @@ namespace Batates.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository repo;
+        private readonly IRestaurantRepository restaurantRepo;
+        private readonly IOrderProductRepository orderProductRepository;
 
-        public ProductController(IProductRepository Repo)
+        public ProductController(IProductRepository Repo, IRestaurantRepository restRepo,IOrderProductRepository orderProductRepository)
         {
-            this.repo = Repo;
+            repo = Repo;
+            restaurantRepo = restRepo;
+            this.orderProductRepository = orderProductRepository;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var result = repo.GetAll(p=>p.Restaurant);
+            var result = repo.GetAll(p => p.Restaurant);
             return View(result);
         }
 
@@ -49,6 +54,7 @@ namespace Batates.Controllers
         [HttpGet]
         public ViewResult Create()
         {
+            ViewBag.restaurants = new SelectList(restaurantRepo.GetAll(), "ID", "Name");
             return View();
         }
 
@@ -56,53 +62,133 @@ namespace Batates.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (product is not null)
             {
-                repo.Create(product);
-                return RedirectToAction("Details", new { id = product.ID });
-            }
 
-            return View(product);
+                if (product.RestaurantID == 0)
+                {
+                    ModelState.AddModelError("RestaurantID", "please select restaurent");
+                }
+                if (ModelState.IsValid)
+                {
+                    repo.Create(product);
+                    TempData["success"] = "add successfully";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["error"] = " product is not valid ";
+                    return View(product);
+                }
+            }
+            else
+            {
+                TempData["error"] = " can't not founded";
+                return View(product);
+            }
         }
 
         public ActionResult Edit(int id)
         {
+            ViewBag.restaurants = new SelectList(restaurantRepo.GetAll(), "ID", "Name");
             return View(repo.Get(p => p.ID == id, p => p.Restaurant));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Product product)
+        public ActionResult Edit(Product product)
         {
-            try
+            if (product is not null)
             {
-                repo.Update(product);
-                return RedirectToAction(nameof(Index));
+                if (product.RestaurantID == 0)
+                {
+                    ModelState.AddModelError("RestaurantID", "please select restaurent");
+                }
+                if (ModelState.IsValid)
+                {
+                    var productFromDb = repo.Get(p => p.ID == product.ID);
+                    if (productFromDb is not null)
+                    {
+                        repo.Update(product);
+                        TempData["success"] = "update successfully";
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewBag.restaurants = new SelectList(restaurantRepo.GetAll(), "ID", "Name");
+            TempData["error"] = " product is not valid ";
+            return View(product);
+
         }
 
-        public ActionResult Delete(int id)
+
+
+
+
+
+
+        //public ActionResult Delete(int id)
+        //{
+        //    return View(repo.Get(p => p.ID == id));
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(Product product)
+        //{
+        //    try
+        //    {
+        //        repo.Delete(product);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+        #region API Call
+        [HttpGet]
+        public ActionResult GettAllProducts()
         {
-            return View(repo.Get(p => p.ID == id));
+            var result = repo.GetAll(p => p.Restaurant).Select(p => new { p.ID, p.Name, p.Price, p.RestaurantID, Restaurant = p.Restaurant.Name });
+            return Json(new { data = result });
+        }
+        public ActionResult GettAllProductOrders(int id)
+        {
+            //to be tested later
+            var productOrder = orderProductRepository.Get(op => op.Product.ID == id, op => op.Order, op => op.Order.ApplicationUser);
+            var result = new { productOrder.OrderID,productOrder.Order.OrderDate, productOrder.Quantity, productOrder.Order.ApplicationUser.Fullname };
+            return Json(new { data = result });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Product product)
+        [HttpDelete]
+        public ActionResult Delete(int? id)
         {
-            try
+            if (id is null)
             {
-                repo.Delete(product);
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = "false", message = "id can't not be null" });
             }
-            catch
+            else
             {
-                return View();
+                var productFromDb = repo.Get(p => p.ID == id);
+                if (productFromDb is not null)
+                {
+                    repo.Delete(productFromDb);
+                    return Json(new { success = true, message = "delete successfully" });
+
+                }
+                else
+                {
+                    return Json(new { success = "false", errorMessage = "cant found product" });
+
+                }
             }
+
         }
+
+
+        #endregion
     }
 }

@@ -4,19 +4,68 @@
     ViewData["Title"] = "Product Details";
 }
 
-<h1>Product Details</h1>
-<div class="card">
-    <h3 class="card-header">Value Meals</h3>
 
-    <partial name="_ProductPartial" model="Model" />
+<div class="col-8 mx-auto">
+    <div class="card shadow border-1 my-4">
+        <div class="card-header bg-primary bg-gradient ml-0 py-3">
+            <div class=" row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">  Product Details</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-8">
+                    <partial name="_ProductFormDisabled" model="@Model"></partial>
+                    
+                </div>
+                <div class="col-4">
+                    @if (Model.ImageURL != null)
+                    {
+                        <div class=" p-1 m-2 text-center">
+                            <img src="@Model.ImageURL" width="100%"
+                                 style="border-radius:5px; border:1px solid #bbb9b9" />
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+            <hr />
+            <div class="row">
+                <table id="productorderTable" class="table table-bordered  text-center ">
+                    <thead>
+                        <tr>
+                            <th>
+                             Order Number   
+                            </th> 
+                            <th>
+                             Order Date   
+                            </th>
+                            <th>
+                             Quintity    
+                            </th>
+                            <th>
+                                Customer
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+
+            <div class="row pt-2 ">
+                <div class="col-6   col-md-3">
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary border form-control">Back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<style>
-    .card-body:hover {
-        background: #f1f1f1;
-    }
-    .product_image{
-        max-height: 128px;
-        width:auto;
-    }
-</style>
+@section Scripts
+{
+    <script src="~/js/productorders.js"></script>
+}

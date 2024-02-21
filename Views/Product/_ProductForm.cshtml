@@ -1,0 +1,36 @@
+﻿@model Product
+@{
+    SelectList rests = ViewBag.restaurants as SelectList;
+}
+<div class="form-floating mb-3 col-12">
+    <input asp-for="Name" class="form-control " aria-required="true" placeholder="Name" />
+    <label asp-for="Name" class="ms-2 text-muted">Name</label>
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <input asp-for="Description" class="form-control " aria-required="true" placeholder="Description" />
+    <label asp-for="Description" class="ms-2 text-muted"></label>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="form-floating mb-3 col-12">
+    <input asp-for="Price" class="form-control " aria-required="true" placeholder="Price" />
+    <label asp-for="Price" class="ms-2 text-muted "></label>
+    <span asp-validation-for="Price" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <input asp-for="ImageURL" class="form-control " aria-required="true" placeholder="Image" />
+    <label asp-for="ImageURL" class="ms-2 text-muted">Image</label>
+    <span asp-validation-for="ImageURL" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <select asp-for="RestaurantID" asp-items="rests" class="form-select " aria-required="true" placeholder="Restaurant">
+        <option selected disabled> --Select Restaurant-- </option>
+    </select>
+    <label asp-for="RestaurantID" class="ms-2 text-muted"></label>
+    <span asp-validation-for="RestaurantID" class="text-danger"></span>
+</div>
+
+
+
+

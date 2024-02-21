@@ -10,7 +10,7 @@ namespace Batates.Controllers
 
         private readonly ICategoryRepository repo;
 
-        public CategoryController( ICategoryRepository Repo)
+        public CategoryController(ICategoryRepository Repo)
         {
             this.repo = Repo;
         }
@@ -29,7 +29,7 @@ namespace Batates.Controllers
         // GET: CategoryController/Details/5
         public ActionResult Details(int id)
         {
-            return View(repo.Get(c=>c.ID == id));
+            return View(repo.Get(c => c.ID == id));
         }
 
         // GET: CategoryController/Create
@@ -46,7 +46,7 @@ namespace Batates.Controllers
             if (ModelState.IsValid)
             {
                 repo.Create(category);
-                return RedirectToAction("Details", new {id = category.ID});
+                return RedirectToAction("Details", new { id = category.ID });
             }
             return View(category);
         }
@@ -54,7 +54,7 @@ namespace Batates.Controllers
         // GET: CategoryController/Edit/5
         public ActionResult Edit(int id)
         {
-            var category = repo.Get(c=>c.ID == id);
+            var category = repo.Get(c => c.ID == id);
             return View(category);
         }
 
@@ -65,7 +65,7 @@ namespace Batates.Controllers
         {
             if (ModelState.IsValid)
             {
-                Category toUpdate = repo.Get(c=>c.ID==category.ID);
+                Category toUpdate = repo.Get(c => c.ID == category.ID);
                 toUpdate.Name = category.Name;
                 toUpdate.ImageURL = category.ImageURL;
                 toUpdate.Description = category.Description;
@@ -88,9 +88,17 @@ namespace Batates.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Category category)
         {
-                int deletedCategory = repo.Delete(category);
-                return RedirectToAction("GetAll");
-            }
-      
+            int deletedCategory = repo.Delete(category);
+            return RedirectToAction("GetAll");
+        }
+        #region API Call
+        [HttpGet]
+        public ActionResult GettAllCategories()
+        {
+            var result = repo.GetAll().Select(c => new { c.ID,c.Name, c.Description,c.ImageURL });
+            return Json(new { data = result });
+        }
+        #endregion
+
     }
 }
