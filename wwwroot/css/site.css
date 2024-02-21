@@ -8,7 +8,9 @@
     box-shadow: 0 -2px;
 }
 
-
+.dt-length label {
+    display: none;
+}
 
 html {
     font-size: 14px;
