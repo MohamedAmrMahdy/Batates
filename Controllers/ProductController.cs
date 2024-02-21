@@ -1,11 +1,8 @@
-﻿using Batates.Data;
-using Batates.Models;
+﻿using Batates.Models;
 using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.Arm;
 
 namespace Batates.Controllers
 {

@@ -1,6 +1,5 @@
 ﻿using Batates.Models.Enums;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 
 namespace Batates.Models
 {

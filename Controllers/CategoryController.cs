@@ -1,6 +1,5 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Batates.Controllers

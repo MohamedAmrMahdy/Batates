@@ -1,7 +1,6 @@
 ﻿using Batates.Data;
 using Batates.Models;
 using Batates.Repo.IRepo;
-using System;
 
 namespace Batates.Repo.Repo
 {
