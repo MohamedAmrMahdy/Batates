@@ -34,7 +34,7 @@ namespace Batates.Data
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
         public virtual DbSet<Restaurant> Restaurant { get; set; }
-        public DbSet<Batates.Models.Category> Category { get; set; } = default!;
+        public virtual DbSet<Category> Category { get; set; } 
 
     }
 }

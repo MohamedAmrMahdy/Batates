@@ -32,6 +32,7 @@ namespace Batates
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IOrderProductRepository, OrderProductRepository>();
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
 
             builder.Services.AddAuthentication().AddMicrosoftAccount(options =>
             {
