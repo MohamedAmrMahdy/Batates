@@ -1,0 +1,32 @@
+﻿@model Batates.Models.Restaurant
+@{
+    bool IsEditable = (bool)ViewData["IsEditable"];
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="ID" />
+<div class="form-floating mb-3 col-12">
+    <input asp-for="Name" disabled="@(!IsEditable)" class="form-control" aria-required="true" placeholder="Name"></input>
+    <label asp-for="Name" class="ms-2 text-muted" >Name</label>
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <input asp-for="Description" disabled="@(!IsEditable)" class="form-control" aria-required="true" placeholder="Description"></input>
+    <label asp-for="Description" class="ms-2 text-muted">Description</label>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <input asp-for="ImageURL" disabled="@(!IsEditable)" class="form-control" placeholder="ImageURL"></input>
+    <label asp-for="ImageURL" class="ms-2 text-muted">ImageURL</label>
+    <span asp-validation-for="ImageURL" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <select asp-for="State" disabled="@(!IsEditable)" class="form-control" placeholder="State" asp-items="@Html.GetEnumSelectList<State>()">
+    </select>
+    <label asp-for="State" class="ms-2 text-muted">State</label>
+    <span asp-validation-for="State" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <input asp-for="ContactNo" disabled="@(!IsEditable)" class="form-control" placeholder="ContactNo"></input>
+    <label asp-for="ContactNo" class="ms-2 text-muted">ContactNo</label>
+    <span asp-validation-for="ContactNo" class="text-danger"></span>
+</div>
