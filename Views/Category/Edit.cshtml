@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+@* <h1>Edit</h1>
 
 <h4>Category</h4>
 <hr />
@@ -37,6 +37,36 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div> *@
+
+
+<div class="col-8 mx-auto">
+    <div class="card shadow border-1 my-4">
+        <div class="card-header bg-primary bg-gradient ml-0 py-3">
+            <div class=" row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2"> Edit Category</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-12">
+                    <form class="row" method="post">
+                        <partial name="_CategoryForm" model="@Model"></partial>
+                        <div class="row pt-2 ">
+                            <div class="col-6  col-md-3">
+                                <button type="submit" class="btn btn-primary form-control">Update</button>
+                            </div>
+                            <div class="col-6   col-md-3">
+                                <a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary border form-control">Back to list</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
