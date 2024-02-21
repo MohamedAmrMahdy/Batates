@@ -24,24 +24,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door-fill"></i>&nbsp; Home</a>
                         </li>
 
                         @if (!User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Content Managment
+                                    <i class="bi bi-hdd-rack-fill"></i>&nbsp; Content Managment
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark" asp-controller="Category" asp-action="getall">Category</a>
+                                        <a class="dropdown-item text-dark" asp-controller="Category" asp-action="getall"><i class="bi bi-files"></i>&nbsp; Category</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark"  asp-controller="Product" asp-action="Index">Product</a>
+                                        <a class="dropdown-item text-dark" asp-controller="Product" asp-action="Index"><i class="bi bi-cookie"></i>&nbsp; Product</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark"  asp-controller="Restaurant" asp-action="Index">Restaurant</a>
+                                        <a class="dropdown-item text-dark" asp-controller="Restaurant" asp-action="Index"><i class="bi bi-building"></i>&nbsp; Restaurant</a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                 </ul>
