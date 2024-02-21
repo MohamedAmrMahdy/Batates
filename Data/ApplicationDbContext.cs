@@ -18,8 +18,11 @@ namespace Batates.Data
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderProductConfiguration());
 
+            //Seeding2 test = new Seeding2();
+
             modelBuilder.Entity<Category>().HasData(SeedData.CategoryList());
             modelBuilder.Entity<Restaurant>().HasData(SeedData.RestaurantList());
+            //modelBuilder.Entity<Restaurant>().HasData(test.Restaurants);
             modelBuilder.Entity<Product>().HasData(SeedData.ProductsList());
             modelBuilder.Entity<IdentityRole>().HasData(SeedData.RoleList());
             modelBuilder.Entity<ApplicationUser>().HasData(SeedData.UsersList());

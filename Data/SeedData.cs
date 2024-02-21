@@ -1,5 +1,6 @@
 ﻿using Batates.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Cryptography;
 
 namespace Batates.Data
 {
@@ -146,5 +147,36 @@ namespace Batates.Data
 
             return tempList;
         }
+
+        //public static List<Order> OrderList()
+        //{
+        //    List<Order> tempList = new List<Order>()
+        //    {
+
+        //    };
+        //}
     }
+
+    //public class Seeding2
+    //{
+    //    Category C1 { get; set; } = new Category() { ID = 1, Name = "Italian", Description = "Indulge in the rich flavors and culinary heritage of Italy with our authentic Italian cuisine, where every dish is crafted with passion and tradition to transport you to the sun-kissed hills of Tuscany and the bustling streets of Naples.", ImageURL = "https://dummyjson.com/image/512x512/?text=Italian" };
+    //    Category C2 { get; set; } = new Category() { ID = 2, Name = "Mexican", Description = "Experience the vibrant and spicy flavors of Mexico with our tantalizing Mexican cuisine, from sizzling fajitas to mouthwatering tacos, guaranteed to ignite your taste buds with every bite.", ImageURL = "https://dummyjson.com/image/512x512/?text=Mexican" };
+    //    Category C3 { get; set; } = new Category() { ID = 3, Name = "Japanese", Description = "Embark on a culinary journey to Japan with our exquisite Japanese cuisine, where tradition meets innovation in every carefully crafted sushi roll, flavorful ramen bowl, and delicate tempura dish.", ImageURL = "https://dummyjson.com/image/512x512/?text=Japanese" };
+    //    Category C4 { get; set; } = new Category() { ID = 4, Name = "Indian", Description = "Delight your senses with the aromatic spices and diverse flavors of India through our authentic Indian cuisine, featuring savory curries, aromatic biryanis, and decadent desserts that will transport you to the bustling streets of Mumbai and the serene backwaters of Kerala.", ImageURL = "https://dummyjson.com/image/512x512/?text=Indian" };
+
+    //    public List<Restaurant> Restaurants { get; set; } = new List<Restaurant>();
+    //    Restaurant R1 { get; set; } = new Restaurant() { ID = 1, Name = "RomaPizza", Description = "Our mission is to uphold the highest level of quality in all we do, from the quality and origin of our food to our care for the health of our customers and the environment.", State = State.Opened, ContactNo = "0114379314" };
+    //    Restaurant R2 { get; set; } = new Restaurant() { ID = 2, Name = "Taste of Italy", Description = "Experience the authentic flavors of Italy with our handcrafted pizzas, pasta, and mouthwatering desserts, served with a touch of Italian hospitality.", State = State.Opened, ContactNo = "0215896347" };
+    //    Restaurant R3 { get; set; } = new Restaurant() { ID = 3, Name = "El Taco Loco", Description = "Get ready for a fiesta of flavors with our bold and delicious Mexican cuisine, featuring tacos, burritos, and sizzling fajitas that will transport you south of the border.", State = State.Opened, ContactNo = "0317269854" };
+    //    Restaurant R4 { get; set; } = new Restaurant() { ID = 4, Name = "Sushi Zen", Description = "Discover the art of sushi at Sushi Zen, where our skilled chefs combine fresh ingredients with precision and technique to create sushi rolls that are as beautiful as they are delicious.", State = State.Opened, ContactNo = "0413785621" };
+    //    Restaurant R5 { get; set; } = new Restaurant() { ID = 5, Name = "Spice Route", Description = "Embark on a culinary journey through the flavors of India at Spice Route, where our aromatic spices and authentic recipes will tantalize your taste buds and transport you to the streets of Mumbai.", State = State.Opened, ContactNo = "0518932746" };
+
+    //    public Seeding2()
+    //    {
+    //        R1.Categories.Add(C1);
+    //        R1.Categories.Add(C2);
+    //        Restaurants.Add(R1);
+    //        Restaurants.Add(R2);
+    //    }
+    //}
 }
