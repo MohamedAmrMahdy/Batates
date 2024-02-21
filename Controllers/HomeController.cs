@@ -33,11 +33,8 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult Category(int id)
         {
-
-            return View(RestaurantRepo.GetAll(r => r.Categories).Where(r => r.Categories.Any(cat => cat.ID == id)));
             ViewBag.category = CategoryRepo.Get(c=>c.ID == id);
-            return View(RestaurantRepo.GetAll(r => r.Categories.Any(cat => cat.ID == id), r => r.Categories));
-
+            return View(RestaurantRepo.GetAll(r => r.Categories).Where(r => r.Categories.Any(cat => cat.ID == id)));
         }
 
 

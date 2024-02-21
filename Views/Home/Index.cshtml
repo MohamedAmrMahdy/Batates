@@ -4,7 +4,8 @@
     ViewData["Title"] = "Batates - Homepage";
 }
 
-<header class="bg-dark py-5">
+@* override style, to make the header full-width without breaking rest of the page *@
+<header class="bg-dark py-5" style=" width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;"> 
     <div class="container px-5">
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
@@ -21,14 +22,14 @@
     </div>
 </header>
 
-<div class="category-container">
+<div class="category-container" style="margin-bottom: 10rem;">
     @foreach (var item in Model)
     {
         <a href="">
             <div class="category">
                 <img src="@item.ImageURL" alt="Category Image">
                 <h2>@item.Name</h2>
-                <p>@item.Description</p>
+                @* <p>@item.Description</p> *@
             </div>
         </a>
 
