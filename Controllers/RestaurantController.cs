@@ -1,5 +1,6 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
+using Batates.Repo.Repo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Batates.Controllers
@@ -43,7 +44,6 @@ namespace Batates.Controllers
         [HttpPost]
         public IActionResult Edit(Restaurant restaurant)
         {
-
             if (ModelState.IsValid)
             {
 
@@ -93,5 +93,39 @@ namespace Batates.Controllers
             int deletedCategory = repo.Delete(restaurant);
             return RedirectToAction("ViewAll");
         }
+
+        #region API Call
+        [HttpGet]
+        public ActionResult GettAllRestaurants()
+        {
+            var result = repo.GetAll().Select(p => new { p.ID, p.Name, State = p.State.ToString(), p.ContactNo });
+            return Json(new { data = result });
+        }
+        [HttpDelete]
+        public ActionResult Delete(int? id)
+        {
+            if (id is null)
+            {
+                return Json(new { success = "false", message = "id can't not be null" });
+            }
+            else
+            {
+                var restaurantFromDb = repo.Get(p => p.ID == id);
+                if (restaurantFromDb is not null)
+                {
+                    repo.Delete(restaurantFromDb);
+                    return Json(new { success = true, message = "delete successfully" });
+
+                }
+                else
+                {
+                    return Json(new { success = "false", errorMessage = "cant find restaurant" });
+
+                }
+            }
+
+        }
+
+        #endregion
     }
 }
