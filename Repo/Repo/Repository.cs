@@ -1,4 +1,5 @@
 ﻿using Batates.Data;
+using Batates.Models;
 using Batates.Repo.IRepo;
 using Microsoft.EntityFrameworkCore;
 using System;

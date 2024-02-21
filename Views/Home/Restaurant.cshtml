@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Batates.Models.Product>
+
+@{
+    var currRestaurant = (Restaurant)ViewBag.Restaurant;
+    ViewData["Title"] = currRestaurant.Name;
+}
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+        <div class="col-lg-5">
+            <h1 class="font-weight-light">@currRestaurant.Name</h1>
+            <p>@currRestaurant.Description</p>
+            <a class="btn btn-primary" href="tel:@currRestaurant.ContactNo">
+                <i class="bi bi-telephone-fill"></i>
+                Contact
+            </a>
+        </div>
+        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="@(currRestaurant.ImageURL ?? "https://dummyjson.com/image/600x400")" alt="..." /></div>
+    </div>
+    <div class="row gx-4 gx-lg-5">
+        @foreach(var item in Model)
+        {
+            <div class="col-12 mb-1">
+                <div class="card">
+                        <partial name="../Product/_ProductPartial" model="item" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card-body:hover {
+        background: var(--bs-secondary-bg);
+    }
+
+    .product_image {
+        max-height: 128px;
+        width: auto;
+    }
+</style>

@@ -34,14 +34,14 @@ namespace Batates.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update(int id)
+        public IActionResult Edit(int id)
         {
             var restaurant = repo.Get(x => x.ID == id);
             return View(restaurant);
         }
 
         [HttpPost]
-        public IActionResult Update(Restaurant restaurant)
+        public IActionResult Edit(Restaurant restaurant)
         {
 
             if (ModelState.IsValid)
@@ -76,6 +76,22 @@ namespace Batates.Controllers
             }
 
             return View(restaurant);
+        }
+
+
+        public ActionResult Delete(int id)
+        {
+            var restaurant = repo.Get(c => c.ID == id);
+            return View(restaurant);
+        }
+        //hello
+        // POST: CategoryController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, Restaurant restaurant)
+        {
+            int deletedCategory = repo.Delete(restaurant);
+            return RedirectToAction("ViewAll");
         }
     }
 }
