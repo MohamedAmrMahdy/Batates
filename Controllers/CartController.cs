@@ -1,5 +1,6 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -25,7 +26,7 @@ namespace Batates.Controllers
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //asp-area="Identity" asp-page="/Account/Manage/Index"
             if (userid == null)
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                LocalRedirect("/Identity/Account/Login"); ;
             // Check User Cart First?
             var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
             // user already has cart? Check if the restaurant ID matches
@@ -99,6 +100,26 @@ namespace Batates.Controllers
             CartRepo.Update(uCart);
             CardProductList.ForEach(p => CartProductRepo.Delete(p));
             return Json(new { success = true, message = "Cleared the Cart" });
+        }
+
+        [HttpGet]
+        public IActionResult Overview()
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userid == null)
+                return LocalRedirect("/Identity/Account/Login");
+            var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
+            var cartProducts = CartProductRepo.GetAll(cp => cp.Product).Where(cp => uCart.Products.Contains(cp));
+            double total = 0.0;
+            if(cartProducts != null && cartProducts.Count() > 0)
+            {
+                foreach(var cartProduct in cartProducts)
+                {
+                    total += (cartProduct.Product.Price * cartProduct.Quantity);
+                }
+            }
+            ViewBag.Total = total;
+            return View(cartProducts);
         }
 
     }
