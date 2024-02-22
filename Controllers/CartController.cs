@@ -34,52 +34,71 @@ namespace Batates.Controllers
                 var ProductToAdd = ProductRepo.Get(p => p.ID == id);
                 if (ProductToAdd != null)
                 {
-                    if (ProductToAdd.RestaurantID == restid)
+                    if (uCart.Products.Count == 0)
                     {
-                        if (uCart.Products == null)
-                        {
-                            uCart.Products = new List<CartProduct>() { new CartProduct() { Product = ProductToAdd, Quantity = 1 } };
-                            CartRepo.Update(uCart);
-                            return Json(new { Success = true, message = "Added successfully to Cart!" });
-                        }
-                        else
-                        {
-                            // Check if item already is in Cart
-                            var cartProducts = CartProductRepo.GetAll(cp => cp.Product).Where(cp => uCart.Products.Contains(cp));
-                            var cartProduct = cartProducts.FirstOrDefault(cp => cp.Product.ID == ProductToAdd.ID);
-                            if (cartProduct != null)
-                            {
-                                cartProduct.Quantity += 1;
-                                CartProductRepo.Update(cartProduct);
-                                return Json(new { Success = true, message = "Incremented Count in Cart!" });
-                            }
-                            else
-                            {
-                                uCart.Products.Add( new CartProduct() { Product = ProductToAdd, Quantity = 1 });
-                                CartRepo.Update(uCart);
-                                return Json(new { Success = true, message = "Added successfully to Cart!" });
-
-                            }
-                        }
+                        uCart.Products = new List<CartProduct>() { new CartProduct() { Product = ProductToAdd, Quantity = 1 } };
+                        CartRepo.Update(uCart);
+                        return Json(new { Success = true, message = $"Added {ProductToAdd.Name} to Cart!" });
                     }
                     else
                     {
-                        // Not Same Restaurant ID
-                        // Clear Cart then Create new one but check with user first.
-                        return Json(new { Success = false, message = "Already got a Cart from another Restaurant" });
+                        var cartProducts = CartProductRepo.GetAll(cp => cp.Product).Where(cp => uCart.Products.Contains(cp));
+                        if (ProductToAdd.RestaurantID == cartProducts.First().Product.RestaurantID)
+                        {
+                            var cartProduct = cartProducts.FirstOrDefault(cp => cp.Product.ID == ProductToAdd.ID);
+                            // Check if item already is in Cart
+                            if (cartProduct != null)
+                            {
+                                // increment CartProduct count
+                                cartProduct.Quantity += 1;
+                                CartProductRepo.Update(cartProduct);
+                                return Json(new { Success = true, message = $"Incremented {ProductToAdd.Name} in Cart!" });
+                            }
+                            else
+                            {
+                                // Add the item to Cart with Quantity of 1
+                                uCart.Products.Add(new CartProduct() { Product = ProductToAdd, Quantity = 1 });
+                                CartRepo.Update(uCart);
+                                return Json(new { Success = true, message = $"Added {ProductToAdd.Name} to Cart!" });
+                            }
+                        }
+                        else
+                        {
+                            // Redirect user to ClearCart action
+                            return Json(new { Success = false, message = "Already got a Cart from another Restaurant" });
+                        }
                     }
+
+
                 }
             }
             else
             {
+                // Generate new Cart for user
                 var ProductToAdd = ProductRepo.Get(p => p.ID == id);
                 var CartProduct = new CartProduct() { Product = ProductToAdd, Quantity = 1 };
                 uCart = new Cart() { ApplicationUserID = userid, Products = new List<CartProduct>() { CartProduct } };
                 CartRepo.Create(uCart);
-                return Json(new { Success = true, message = "Added successfully to Cart!" });
+                return Json(new { Success = true, message = $"Added {ProductToAdd.Name} to Cart!" });
             }
 
-            return Json(new { success = false });
+            return Json(new { success = false, message = "Invalid" });
+        }
+
+        // Do not touch this
+        // This is the only way to
+        // A) Clear Products list in Cart of the user.
+        // B) Clear Each Product from CartProduct Table (their CartID becomes NULL)
+        [HttpDelete]
+        public IActionResult ClearCart()
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
+            List<CartProduct> CardProductList = uCart.Products;
+            uCart.Products = new List<CartProduct>();
+            CartRepo.Update(uCart);
+            CardProductList.ForEach(p => CartProductRepo.Delete(p));
+            return Json(new { success = true, message = "Cleared the Cart" });
         }
 
     }
