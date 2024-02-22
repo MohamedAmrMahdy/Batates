@@ -3,7 +3,7 @@ function clearCart() {
 
     Swal.fire({
         title: "Are you sure?",
-        text: "You have items from another Restaurant\nIf you confirm it will be cleared.",
+        text: "If you confirm, your cart will be cleared.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -18,6 +18,7 @@ function clearCart() {
                         type: "Delete",
                         success: function (data) {
                             toastr.success(data.message);
+                            const myTimeout = setTimeout(()=>location.reload(), 3000);
                         }
                     }
                 )
