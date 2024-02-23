@@ -59,19 +59,19 @@
                                         <p class="small mb-2">Choose payment option:</p>
                                         <div class="mb-4">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeDelivery" checked>
+                                                    <input class="form-check-input" type="radio" name="paymentType" value="@PaymentMethod.COD" id="paymentTypeDelivery" checked>
                                                 <label class="form-check-label" for="paymentTypeDelivery">
                                                     Cash on delivery
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeCard">
+                                                    <input class="form-check-input" type="radio" name="paymentType" value="@PaymentMethod.CC" id="paymentTypeCard">
                                                 <label class="form-check-label" for="paymentTypeCard">
                                                     VISA / MasterCard (Card Payment)
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypePayPal">
+                                                <input class="form-check-input" type="radio" name="paymentType" value="@PaymentMethod.ExternalPayment" id="paymentTypePayPal">
                                                 <label class="form-check-label" for="paymentTypePayPal">
                                                     Paypal
                                                 </label>

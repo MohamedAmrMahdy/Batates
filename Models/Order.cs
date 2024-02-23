@@ -25,8 +25,8 @@ namespace Batates.Models
         [EnumDataType(typeof(OrderState))]
         public OrderState State { get; set; }
         public string? ExtraDetails { get; set; }
-        public virtual List<Product>? Products { get; }
-        public virtual List<OrderProduct>? OrderProducts { get; }
+        public virtual List<Product>? Products { get; set; }
+        public virtual List<OrderProduct>? OrderProducts { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
 

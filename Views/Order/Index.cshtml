@@ -34,6 +34,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m=>item.ID)</td>
+                        <td>@Html.DisplayFor(m => item.OrderDate)</td>
+                        <td>@Html.DisplayFor(m => item.State)</td>
+                        <td>@Html.DisplayFor(m => item.TotalPrice)</td>
+                    </tr>
+                }
             </tbody>
         </table>
 
