@@ -19,5 +19,6 @@ namespace Batates.Controllers
             var result = repo.GetAll();
             return View(result);
         }
+
     }
 }
