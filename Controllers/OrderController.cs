@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Batates.Controllers
 {
-    public class OrdersController : Controller
+    public class OrderController : Controller
     {
         private readonly IOrdersRepository repo;
 
-        public OrdersController(IOrdersRepository Repo)
+        public OrderController(IOrdersRepository Repo)
         {
             this.repo = Repo;
         }
