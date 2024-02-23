@@ -15,6 +15,7 @@ namespace Batates.Models
         public int ID { get; set; }
         [Required]
         public DateTime OrderDate { get; set; }
+        [DataType( DataType.Currency)]
         public double TotalPrice { get; set; }
         [Required]
         [EnumDataType(typeof(OrderState))]
