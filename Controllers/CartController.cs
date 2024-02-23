@@ -122,5 +122,15 @@ namespace Batates.Controllers
             return View(cartProducts);
         }
 
+        [HttpGet]
+        public IActionResult RemoveItem(CartProduct cp)
+        {
+            var CartItem = CartProductRepo.Get(cp => cp.ID == cp.ID);
+            if (CartItem != null)
+                CartProductRepo.Delete(CartItem);
+            
+            return RedirectToAction("Overview");
+        }
+
     }
 }

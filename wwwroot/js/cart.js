@@ -1,6 +1,5 @@
 ﻿toastr.options = { "positionClass": "toast-bottom-right" };
 function clearCart() {
-
     Swal.fire({
         title: "Are you sure?",
         text: "If you confirm, your cart will be cleared.",
@@ -26,6 +25,21 @@ function clearCart() {
         }
     });
 }
+
+//function removeItem(id) {
+//    $.ajax({
+//        url: '/Cart/RemoveItem',
+//        type: 'DELETE',
+//        data: {
+//            id:id
+//        },
+//        success: function (response) {
+//            if (response.success) {
+//                location.reload();
+//            }
+//        }
+//    })
+//}
 
 
     $(document).ready(function () {

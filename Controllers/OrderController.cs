@@ -1,4 +1,5 @@
-﻿using Batates.Repo.IRepo;
+﻿using Batates.Models;
+using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Batates.Controllers
@@ -18,6 +19,13 @@ namespace Batates.Controllers
         {
             var result = repo.GetAll();
             return View(result);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitOrder(List<CartProduct> cartProducts, IFormCollection collection)
+        {
+
+            return View();
         }
 
     }
