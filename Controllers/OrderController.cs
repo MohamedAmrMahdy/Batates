@@ -19,7 +19,7 @@ namespace Batates.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult History()
         {
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = OrderRepo.GetAll().Where(o => o.ApplicationUserID == userid);
