@@ -18,11 +18,15 @@ namespace Batates.Repo.Repo
             Restaurant toEdit = Get((p => p.ID == restaurant.ID));
             if (toEdit != null)
             {
-                toEdit.Name = restaurant.Name;
-                toEdit.Description = restaurant.Description;
-                toEdit.ContactNo = restaurant.ContactNo;
-                toEdit.ImageURL = restaurant.ImageURL;
-                toEdit.State = restaurant.State;
+                //toEdit.Name = restaurant.Name;
+                //toEdit.Description = restaurant.Description;
+                //toEdit.ContactNo = restaurant.ContactNo;
+                //toEdit.ImageURL = restaurant.ImageURL;
+                //toEdit.State = restaurant.State;
+
+
+                //toEdit.Categories = restaurant.Categories;
+                DB.Restaurant.Update(restaurant);
                 return DB.SaveChanges();
             }
             else { return 0; }
