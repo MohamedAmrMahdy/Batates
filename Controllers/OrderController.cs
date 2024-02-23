@@ -10,7 +10,7 @@ namespace Batates.Controllers
         private readonly IOrdersRepository repo;
         private readonly IOrderProductRepository orderProductRepository;
 
-        public OrderController(IOrdersRepository Repo)
+        public OrderController(IOrdersRepository Repo, IOrderProductRepository orderProductRepository)
         {
             this.repo = Repo;
             this.orderProductRepository = orderProductRepository;
