@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Batates.Models.WishedItem>
+@{
+    ViewData["Title"] = "Order Overview";
+    double delivery = 0.00;
+    if (ViewBag.Total > 0)
+    {
+        delivery += 10.00;
+    }
+}
+
+<section class="h-100 h-custom" style="background-color: var(--bs-tertiary-bg);">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+
+                        <div class="row">
+
+                            <div class="col-12">
+                                <h5 class="mb-3">
+                                        <a asp-controller="Home" asp-action="Index" class="text-body">
+                                            <i class="bi bi-cart"></i> Add More Items
+                                        </a>
+                                </h5>
+                                <hr>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                       
+                                        <p class="mb-0">You have @Model.Count() items in your Wish List</p>
+                                    </div>
+                                </div>
+
+                                @foreach (var item in Model)
+                                {
+                                    <partial name="_WishedItemPartial" model="item" />
+                                }
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="~/js/cart.js"></script>
+    <script src="~/js/Wishlist.js"></script>
+}
+    
