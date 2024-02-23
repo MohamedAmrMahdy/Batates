@@ -17,7 +17,7 @@ namespace Batates.Models
         public DateTime OrderDate { get; set; }
         public double TotalPrice { get; set; }
         [Required]
-        [EnumDataType(typeof(OrderState))]
+        [EnumDataType(typeof(PaymentMethod))]
         public PaymentMethod PaymentMethod { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserID { get; set; }
