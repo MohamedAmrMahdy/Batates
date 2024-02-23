@@ -1,28 +1,43 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Security.Claims;
+
 
 namespace Batates.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly IOrdersRepository repo;
+
+        private readonly IOrdersRepository OrderRepo;
+        private readonly IProductRepository ProductRepo;
         private readonly IOrderProductRepository orderProductRepository;
 
-        public OrderController(IOrdersRepository Repo, IOrderProductRepository orderProductRepository)
+        public OrderController(IOrdersRepository orderRepo, IProductRepository productRepo, IOrderProductRepository orderProductRepository)
         {
-            this.repo = Repo;
+            OrderRepo = orderRepo;
+            ProductRepo = productRepo;
             this.orderProductRepository = orderProductRepository;
+
         }
 
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult History()
         {
-            var result = repo.GetAll(o => o.ApplicationUser);
+
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = OrderRepo.GetAll().Where(o => o.ApplicationUserID == userid);
             return View(result);
         }
+            
+            public IActionResult Index()
+            {
+            var result = OrderRepo.GetAll(o => o.ApplicationUser);
+                return View(result);
+
+            }
+
         [HttpGet]
 
         public IActionResult Edit(int id)
@@ -33,7 +48,7 @@ namespace Batates.Controllers
             }
             else
             {
-                var orderFromDatabase = repo.Get(o => o.ID == id, o => o.ApplicationUser);
+                var orderFromDatabase = OrderRepo.Get(o => o.ID == id, o => o.ApplicationUser);
                 if (orderFromDatabase is not null)
                 {
 
@@ -54,7 +69,7 @@ namespace Batates.Controllers
                 return NotFound();
             else
             {
-                if (repo.Update(order) > 0)
+                if (OrderRepo.Update(order) > 0)
                 {
                     TempData["success"] = "order state changes";
 
@@ -74,11 +89,42 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult GetAllOrders()
         {
-            var result = repo.GetAll(o => o.ApplicationUser).Select(o => new { o.ID, orderDate = o.OrderDate.ToString(), o.State, o.ApplicationUser.UserName, o.TotalPrice }).ToList();
+            var result = OrderRepo.GetAll(o => o.ApplicationUser).Select(o => new { o.ID, orderDate = o.OrderDate.ToString(), o.State, o.ApplicationUser.UserName, o.TotalPrice }).ToList();
             return Json(result);
         }
 
         #endregion
+
+        [HttpPost]
+        public IActionResult SubmitOrder(IFormCollection collection)
+        {
+            var uOrder = new Order();
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            double totalPrice = 0.0;
+
+            uOrder.ApplicationUserID = userid;
+            uOrder.OrderDate = DateTime.Now;
+
+            List<OrderProduct> oProducts = new List<OrderProduct>();
+            //uOrder.PaymentMethod = collection["paymentType"];
+            foreach (var item in collection["ID"])
+            {
+                int id = int.Parse(item);
+                oProducts.Add( new OrderProduct() { Product = ProductRepo.Get(p => p.ID == id) });
+            }
+
+            uOrder.OrderProducts = oProducts;
+
+            for(int i=0; i < collection["Quantity"].Count; i++)
+            {
+                uOrder.OrderProducts[i].Quantity = int.Parse(collection["Quantity"][i]!);
+                totalPrice += uOrder.OrderProducts[i].Product.Price * uOrder.OrderProducts[i].Quantity;
+            }
+            uOrder.TotalPrice = totalPrice;
+            OrderRepo.Create(uOrder);
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
