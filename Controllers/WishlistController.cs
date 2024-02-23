@@ -16,6 +16,7 @@ namespace Batates.Controllers
         {
             this.repo = Repo;
             this.wishedItemrepo = wished;
+            ProductRepo = productRepo;
         }
 
         [HttpGet]

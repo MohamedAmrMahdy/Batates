@@ -1,0 +1,24 @@
+﻿@model Batates.Models.WishedItem
+
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+                <div>
+                    <img src="@Model.Product.ImageURL"
+                         class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                </div>
+                <div class="ms-3">
+                    <h5>@Model.Product.Name</h5>
+                    <p class="small mb-0">@Model.Product.Description</p>
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+                <div style="width: 80px;">
+                    <h5 class="mb-0">@Model.Product.Price</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
