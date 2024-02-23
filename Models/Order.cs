@@ -7,6 +7,7 @@ namespace Batates.Models
     public enum PaymentMethod
     {
         COD,
+        CC,
         ExternalPayment
     }
     public class Order
@@ -18,12 +19,13 @@ namespace Batates.Models
         [DataType( DataType.Currency)]
         public double TotalPrice { get; set; }
         [Required]
-        [EnumDataType(typeof(OrderState))]
+        [EnumDataType(typeof(PaymentMethod))]
         public PaymentMethod PaymentMethod { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserID { get; set; }
         [EnumDataType(typeof(OrderState))]
         public OrderState State { get; set; }
+        public string? ExtraDetails { get; set; }
         public virtual List<Product>? Products { get; }
         public virtual List<OrderProduct>? OrderProducts { get; }
         public ApplicationUser ApplicationUser { get; set; }

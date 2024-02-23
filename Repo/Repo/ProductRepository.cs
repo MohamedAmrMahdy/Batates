@@ -22,7 +22,7 @@ namespace Batates.Repo.Repo
                 toEdit.Description = product.Description;
                 toEdit.Price = product.Price;
                 toEdit.ImageURL = product.ImageURL;
-                toEdit.ExtraDetails = product.ExtraDetails;
+                //toEdit.ExtraDetails = product.ExtraDetails;
                 toEdit.RestaurantID = product.RestaurantID;
                 return DB.SaveChanges();
             }

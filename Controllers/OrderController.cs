@@ -5,12 +5,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Batates.Controllers
 {
-    public class OrdersController : Controller
+    public class OrderController : Controller
     {
         private readonly IOrdersRepository repo;
         private readonly IOrderProductRepository orderProductRepository;
 
-        public OrdersController(IOrdersRepository Repo, IOrderProductRepository orderProductRepository)
+        public OrderController(IOrdersRepository Repo)
         {
             this.repo = Repo;
             this.orderProductRepository = orderProductRepository;

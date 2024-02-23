@@ -52,3 +52,26 @@ function clearCart() {
         });
     });
 
+
+
+$('#typeName').on('input', function () {
+    const virtualCardName = document.getElementById("virtualCardName");
+    virtualCardName.innerHTML = $('#typeName').val();
+});
+$('#typeText').on('input', function () {
+    const virtualCardNumber = document.getElementById("virtualCardNumber");
+    virtualCardNumber.innerHTML = $('#typeText').val();
+});
+$('#typeExp').on('input', function () {
+    const virtualCardEXP = document.getElementById("virtualCardEXP");
+    virtualCardEXP.innerHTML = $('#typeExp').val();
+}); 
+
+$('input[type=radio][name=paymentType]').change(function () {
+    console.log(this.id)
+    if (this.id == "paymentTypeCard") {
+        $("#cardInfoBox").slideDown(500);
+    } else {
+        $("#cardInfoBox").slideUp(500);
+    }
+});

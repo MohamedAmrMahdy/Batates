@@ -15,7 +15,7 @@ namespace Batates.Models
         [DataType(DataType.Currency)]
         public double Price { get; set; } = 0;
         public string? ImageURL { get; set; }
-        public string? ExtraDetails { get; set; }
+        //public string? ExtraDetails { get; set; }
         [ForeignKey("Restaurant")]
         [Display(Name= "Restaurant")]
         public int RestaurantID { get; set; }
