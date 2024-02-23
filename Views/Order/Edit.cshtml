@@ -1,0 +1,100 @@
+﻿@using Batates.Models.Enums
+@model Order
+@{
+    ViewData["Title"] = "Edit";
+    List<OrderProduct> orderproducts = ViewBag.orderProducts as List<OrderProduct>;
+}
+<div class="col-8 mx-auto">
+    <div class="card shadow border-1 my-4">
+        <div class="card-header bg-primary bg-gradient ml-0 py-3">
+            <div class=" row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">  Order Details</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-floating mb-3 col-12">
+                        <input asp-for="ID" value="@Model.ID" disabled class="form-control " aria-required="true" placeholder="ID" />
+                        <label asp-for="ID" class="ms-2 text-muted">ID</label>
+                    </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input asp-for="OrderDate" disabled class="form-control " aria-required="true" placeholder="Date" />
+                        <label asp-for="OrderDate" class="ms-2 text-muted">Date</label>
+                    </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input asp-for="TotalPrice" disabled class="form-control " aria-required="true" placeholder="TotalPrice" />
+                        <label asp-for="TotalPrice" class="ms-2 text-muted">Total Price</label>
+                    </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input asp-for="ApplicationUser.UserName" disabled class="form-control " aria-required="true" placeholder="Name" />
+                        <label asp-for="ApplicationUser.UserName" class="ms-2 text-muted">Customer Name </label>
+                    </div>
+                    <div class="form-floating mb-3 col-12">
+                        <input asp-for="ApplicationUser.PhoneNumber " disabled class="form-control " aria-required="true" placeholder="Phone Number" />
+                        <label asp-for="ApplicationUser.PhoneNumber" class="ms-2 text-muted">Phone Number </label>
+                    </div>
+                </div>
+
+
+            </div>
+            <hr />
+            <div class="row">
+                <table id="productorderTable" class="table table-bordered  text-center ">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Quintity
+                            </th>
+                            <th>
+                                Total Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (OrderProduct orderproduct in orderproducts)
+                        {
+                            <tr>
+                                <td>@orderproduct.Product.Name</td>
+                                <td>@orderproduct.Quantity</td>
+                                <td>
+                                    @{
+                                        double totalPrice = orderproduct.Quantity * orderproduct.Product.Price;
+                                    }
+                                    @totalPrice
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <form asp-action="Edit" asp-controller="Orders">
+                <div class=" row">
+
+                    <div class="form-floating mb-3 col-md-6">
+                        <select asp-for="State" asp-items="@Html.GetEnumSelectList<OrderState>()" class="form-select">
+                        </select>
+                        <label asp-for="State" class="ms-2 text-muted"> State</label>
+                    </div>
+                </div>
+                <div class="row pt-2 ">
+                    <div class="col-6   col-md-3">
+                        <button type="submit" class="btn btn-outline-primary border form-control">Update</button>
+                    </div>
+            </form>
+            <div class="col-6   col-md-3">
+                <a asp-controller="Orders" asp-action="Index" class="btn btn-outline-primary border form-control">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
