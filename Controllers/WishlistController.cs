@@ -21,12 +21,6 @@ namespace Batates.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            var result = repo.GetAll();
-            return View(result);
-        }
-        [HttpGet]
         public IActionResult Overview()
         {
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -105,20 +99,8 @@ namespace Batates.Controllers
 
             return Json(new { success = false, message = "Invalid" });
         }
-        [HttpDelete]
-        public IActionResult ClearWish()
-        {
-            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var uWish = repo.Get(c => c.ApplicationUserID == userid, c => c.WishedProducts);
-            List<WishedItem> wishProductList = uWish.WishedProducts;
-            uWish.WishedProducts = new List<WishedItem>();
-            repo.Update(uWish);
-            wishProductList.ForEach(p => wishedItemrepo.Delete(p));
-            return Json(new { success = true, message = "Cleared the Cart" });
-        }
 
         [HttpPost]
-        
         public ActionResult Delete(int id)
         {
             var wish = wishedItemrepo.Get(c => c.ID == id);
