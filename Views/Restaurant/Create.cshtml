@@ -1,7 +1,8 @@
-﻿@model Batates.Models.Restaurant
+﻿@model Restaurant
 
 @{
     ViewData["Title"] = "Create Restaurant";
+    ViewData["IsEditable"] = true;
 }
 
 <div class="col-8 mx-auto">
@@ -17,39 +18,13 @@
             <div class="row">
                 <div class="col-12">
                     <form class="row" method="post">
-
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="Name" class="control-label"></label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Description" class="control-label"></label>
-                            <input asp-for="Description" class="form-control" />
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="ImageURL" class="control-label"></label>
-                            <input asp-for="ImageURL" class="form-control" />
-                            <span asp-validation-for="ImageURL" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="State" class="control-label"></label>
-                            <select asp-for="State" asp-items="@Html.GetEnumSelectList<State>()" class="form-control"></select>
-                            <span asp-validation-for="State" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="ContactNo" class="control-label"></label>
-                            <input asp-for="ContactNo" class="form-control" />
-                            <span asp-validation-for="ContactNo" class="text-danger"></span>
-                        </div>
+                        <partial name="_RestaurantFormPartial" model="@Model" view-data="ViewData"></partial>
                         <div class="row pt-2 ">
                             <div class="col-6  col-md-3">
                                 <button type="submit" class="btn btn-primary form-control">Create</button>
                             </div>
                             <div class="col-6   col-md-3">
-                                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary border form-control">Back to list</a>
+                                <a asp-controller="Restaurant" asp-action="Index" class="btn btn-outline-primary border form-control">Back to list</a>
                             </div>
                         </div>
 
@@ -59,7 +34,6 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

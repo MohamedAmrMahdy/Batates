@@ -11,6 +11,6 @@ namespace Batates.Models
         [Required]
         public string Description { get; set; }
         public string? ImageURL { get; set; }
-        public virtual List<Restaurant>? Restaurants { get; }
+        public virtual List<Restaurant>? Restaurants { get; set; }
     }
 }

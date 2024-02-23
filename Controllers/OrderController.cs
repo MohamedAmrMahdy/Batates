@@ -62,7 +62,6 @@ namespace Batates.Controllers
                 else
                 {
                     TempData["error"] = "order state didn't update";
-
                     ViewBag.orderProducts = orderProductRepository.GetAll(o => o.Product).Where(o => o.OrderID == order.ID).ToList();
                     return View(order);
                 }

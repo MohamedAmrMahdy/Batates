@@ -7,7 +7,7 @@ function loadDataTable() {
         "ajax": { url: '/category/gettallcategories' },
         "columns": [
             { data: 'name', "width": "20%" ,"class":"text-middle" },
-            { data: 'description', "width": "15%" },
+           /* { data: 'description', "width": "15%" },*/
             {
                 data: "imageURL", "width": "15%",
                 render: function (data) {
