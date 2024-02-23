@@ -2,16 +2,19 @@
 using Batates.Repo.IRepo;
 using Batates.Repo.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Batates.Controllers
 {
     public class RestaurantController : Controller
     {
         private readonly IRestaurantRepository repo;
+        private readonly ICategoryRepository categoryRepository;
 
-        public RestaurantController(IRestaurantRepository Repo)
+        public RestaurantController(IRestaurantRepository Repo,ICategoryRepository categoryRepository)
         {
             this.repo = Repo;
+            this.categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -37,44 +40,76 @@ namespace Batates.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var restaurant = repo.Get(x => x.ID == id);
+            ViewBag.cat =categoryRepository.GetAll().ToList();
+
+            var restaurant = repo.Get(x => x.ID == id,r=>r.Categories);
             return View(restaurant);
         }
 
         [HttpPost]
-        public IActionResult Edit(Restaurant restaurant)
+        public IActionResult Edit(Restaurant restaurant,List<int> cates)
         {
+          
+            if(cates?.Count ==0)
+            {
+                ModelState.AddModelError("Categories", "please select at list single category");
+            }
+
             if (ModelState.IsValid)
             {
-
-                Restaurant toUpdate = repo.Get(x => x.ID == restaurant.ID);
-                toUpdate.Name = restaurant.Name;
-                toUpdate.Description = restaurant.Description;
-                toUpdate.ContactNo = restaurant.ContactNo;
-                toUpdate.State = restaurant.State;
-                toUpdate.ImageURL = restaurant.ImageURL;
-
-                int updatedRestaurant = repo.Update(restaurant);
+                List<Category> categories = new List<Category>();
+                foreach (var catid in cates)
+                {
+                    categories.Add(categoryRepository.Get(cat => cat.ID == catid));
+                }
+                Restaurant restaurantFromDB = repo.Get(r => r.ID == restaurant.ID, r => r.Categories);
+                if (restaurantFromDB.Categories is not null)
+                {
+                    restaurantFromDB.Categories.Clear();
+                }
+                restaurantFromDB.Categories = categories;
+                int updatedRestaurant = repo.Update(restaurantFromDB);
+                TempData["success"] = "restaurant updated successfully";
                 return RedirectToAction("index");
             }
+            TempData["error"] = "restaurant is Invalid successfully";
+            ViewBag.cat = categoryRepository.GetAll().ToList();
             return View(restaurant);
         }
 
         [HttpGet]
         public ViewResult Create()
         {
+            ViewBag.cat = categoryRepository.GetAll().ToList();
             return View();
+          
         }
 
         [HttpPost]
-        public IActionResult Create(Restaurant restaurant)
+        public IActionResult Create(Restaurant restaurant, List<int> cates)
         {
+            if (cates?.Count == 0)
+            {
+                ModelState.AddModelError("Categories", "please select at list single category");
+            }
             if (ModelState.IsValid)
             {
+                List<Category> categories = new List<Category>();
+                foreach (var catid in cates)
+                {
+                    categories.Add(categoryRepository.Get(cat => cat.ID == catid));
+                }
+                if (restaurant.Categories is not null)
+                {
+                    restaurant.Categories.Clear();
+                }
+                restaurant.Categories = categories;
+                TempData["success"] = "restaurant created successfully";
                 repo.Create(restaurant);
-                return RedirectToAction("Details", new { id = restaurant.ID });
+                return RedirectToAction(nameof(Index));
             }
-
+            ViewBag.cat = categoryRepository.GetAll().ToList();
+            TempData["error"] = "restaurant is Invalid ";
             return View(restaurant);
         }
 

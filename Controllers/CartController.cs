@@ -26,7 +26,7 @@ namespace Batates.Controllers
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //asp-area="Identity" asp-page="/Account/Manage/Index"
             if (userid == null)
-                LocalRedirect("/Identity/Account/Login"); ;
+                LocalRedirect("/Identity/Account/Login");
             // Check User Cart First?
             var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
             // user already has cart? Check if the restaurant ID matches

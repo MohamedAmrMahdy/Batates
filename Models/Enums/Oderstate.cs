@@ -2,9 +2,9 @@
 {
     public enum OrderState
     {
-        opened,
-        aproved,
-        cancelled
+        Preparing,
+        Delivering,
+        Completed
 
     }
 }

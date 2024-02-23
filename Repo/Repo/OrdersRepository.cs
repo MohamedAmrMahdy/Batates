@@ -13,5 +13,15 @@ namespace Batates.Repo.Repo
             DB = dB;
         }
 
+        public int Update(Order order)
+        {
+            Order orderFromDb = DB.Orders.FirstOrDefault(o => o.ID == order.ID);
+            if(orderFromDb != null)
+            {
+                orderFromDb.State= order.State;
+            }
+            DB.Orders.Update(orderFromDb);
+           return DB.SaveChanges();
+        }
     }
 }
