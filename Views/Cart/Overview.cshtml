@@ -17,7 +17,7 @@
 
                         <div class="row">
 
-                            <div class="col-lg-7">
+                            <div class="col-xl-7">
                                 <h5 class="mb-3">
                                     @if(Model != null && Model.Any())
                                     {
@@ -48,53 +48,104 @@
                               
 
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-xl-5">
 
                                 <div class="card bg-primary text-white rounded-3">
                                     <div class="card-body">
-                                        <p class="small mb-2">Card type</p>
-                                        <a href="#!" type="submit" class="text-white">
-                                            <i class="fab fa-cc-mastercard fa-2x me-2"></i>
-                                        </a>
-                                        <a href="#!" type="submit" class="text-white">
-                                            <i class="fab fa-cc-visa fa-2x me-2"></i>
-                                        </a>
-                                        <a href="#!" type="submit" class="text-white">
-                                            <i class="fab fa-cc-amex fa-2x me-2"></i>
-                                        </a>
-                                        <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
-
-                                        <form class="mt-4">
-                                            <div class="form-outline form-white mb-4">
-                                                <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                                                       placeholder="Cardholder's Name" />
-                                                <label class="form-label" for="typeName">Cardholder's Name</label>
+                                        <p class="small mb-2">Choose payment option:</p>
+                                        <div class="mb-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeDelivery" checked>
+                                                <label class="form-check-label" for="paymentTypeDelivery">
+                                                    Cash on delivery
+                                                </label>
                                             </div>
-
-                                            <div class="form-outline form-white mb-4">
-                                                <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                                                       placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
-                                                <label class="form-label" for="typeText">Card Number</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeCard">
+                                                <label class="form-check-label" for="paymentTypeCard">
+                                                    VISA / MasterCard (Card Payment)
+                                                </label>
                                             </div>
-
-                                            <div class="row mb-4">
-                                                <div class="col-md-6">
-                                                    <div class="form-outline form-white">
-                                                        <input type="text" id="typeExp" class="form-control form-control-lg"
-                                                               placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" />
-                                                        <label class="form-label" for="typeExp">Expiration</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypePayPal">
+                                                <label class="form-check-label" for="paymentTypePayPal">
+                                                    Paypal
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeStrip">
+                                                <label class="form-check-label" for="paymentTypeStrip">
+                                                    Strip
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div id="cardInfoBox" style="display: none;">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="cardcontainer animate__animated animate__flipInX">
+                                                    <div class="card-header">
+                                                        <span class="cardlogo">
+                                                            <img src="/images/card/logo.png" alt="" />
+                                                            <div class="cardLargeText">Master Card</div>
+                                                        </span>
+                                                        <img src="/images/card/chip.png" alt="" class="chip" />
+                                                    </div>
+                                                    <div class="card-details">
+                                                        <div class="name-number">
+                                                            <div class="cardSmallText">Card Number</div>
+                                                            <div id="virtualCardNumber" class="cardLargeText">9312 6345 2412 5233</div>
+                                                            <div id="virtualCardName" class="cardLargeText mt-2">Mohamed Amr Mahdy</div>
+                                                        </div>
+                                                        <div class="valid-date">
+                                                            <div class="cardSmallText">Valid Thru</div>
+                                                            <div id="virtualCardEXP" class="cardLargeText">03/26</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-outline form-white">
-                                                        <input type="password" id="typeText" class="form-control form-control-lg"
-                                                               placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                                                        <label class="form-label" for="typeText">Cvv</label>
+                                            </div>
+                                            <a href="#!" type="submit" class="text-white">
+                                                <i class="fab fa-cc-mastercard fa-2x me-2"></i>
+                                            </a>
+                                            <a href="#!" type="submit" class="text-white">
+                                                <i class="fab fa-cc-visa fa-2x me-2"></i>
+                                            </a>
+                                            <a href="#!" type="submit" class="text-white">
+                                                <i class="fab fa-cc-amex fa-2x me-2"></i>
+                                            </a>
+                                            <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
+
+                                            <form class="mt-4">
+                                                <div class="form-outline form-white mb-4">
+                                                    <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                                                           placeholder="Cardholder's Name" />
+                                                    <label class="form-label" for="typeName">Cardholder's Name</label>
+                                                </div>
+
+                                                <div class="form-outline form-white mb-4">
+                                                    <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                                           placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                                                    <label class="form-label" for="typeText">Card Number</label>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-6">
+                                                        <div class="form-outline form-white">
+                                                            <input type="text" id="typeExp" class="form-control form-control-lg"
+                                                                   placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" autocomplete="new-password" />
+                                                            <label class="form-label" for="typeExp">Expiration</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-outline form-white">
+                                                            <input type="password" id="typeText" class="form-control form-control-lg"
+                                                                   placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" autocomplete="new-password" />
+                                                            <label class="form-label" for="typeText">Cvv</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                        </form>
+                                            </form>
+                                        </div>
+                                        
 
                                         <hr class="my-4">
 
@@ -147,3 +198,67 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/js/cart.js"></script>
 }
+<style>
+
+    .cardcontainer {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        font-family: "Poppins", sans-serif;
+        background-image: url("/images/card/bg.png");
+        background-size: cover;
+        padding: 25px;
+        border-radius: 28px;
+        max-width: 380px;
+        width: 100%;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header,
+    .cardlogo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+        padding: 0;
+    }
+
+        .cardlogo img {
+      width: 48px;
+      margin-right: 10px;
+    }
+
+    .cardLargeText {
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff;
+    }
+    .chip {
+      width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cardSmallText {
+      color: #fff;
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    #virtualCardNumber {
+      margin-top: 4px;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    virtualCardName {
+      margin-top: 20px;
+    }
+    .container .card-details {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+</style>
