@@ -2,6 +2,7 @@
 using Batates.Repo.IRepo;
 using Batates.Repo.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Batates.Controllers
@@ -116,5 +117,15 @@ namespace Batates.Controllers
             return Json(new { success = true, message = "Cleared the Cart" });
         }
 
+        [HttpPost]
+        
+        public ActionResult Delete(int id)
+        {
+            var wish = wishedItemrepo.Get(c => c.ID == id);
+             wishedItemrepo.Delete(wish);
+            
+            return RedirectToAction("Overview");
+            
+        }
     }
 }

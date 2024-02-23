@@ -19,6 +19,12 @@
                     <h5 class="mb-0">@Model.Product.Price</h5>
                 </div>
             </div>
+            @using (Html.BeginForm("Delete", "Wishlist", FormMethod.Post))
+            {
+                @Html.Hidden("id", Model.ID)
+                <button  class="btn btn-outline-danger" type="submit">Delete</button>
+            }
+
         </div>
     </div>
-</div>
+</div>  
