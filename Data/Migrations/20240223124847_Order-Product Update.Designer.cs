@@ -4,6 +4,7 @@ using Batates.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Batates.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240223124847_Order-Product Update")]
+    partial class OrderProductUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +161,7 @@ namespace Batates.Data.Migrations
                     b.HasIndex("ApplicationUserID")
                         .IsUnique();
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Batates.Models.CartProduct", b =>
@@ -184,7 +187,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("CartProduct", (string)null);
+                    b.ToTable("CartProduct");
                 });
 
             modelBuilder.Entity("Batates.Models.Category", b =>
@@ -208,7 +211,7 @@ namespace Batates.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
 
                     b.HasData(
                         new
@@ -272,7 +275,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("ApplicationUserID");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Batates.Models.OrderProduct", b =>
@@ -290,7 +293,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderProduct", (string)null);
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("Batates.Models.Product", b =>
@@ -322,7 +325,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("RestaurantID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -580,7 +583,7 @@ namespace Batates.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Restaurant", (string)null);
+                    b.ToTable("Restaurant");
 
                     b.HasData(
                         new
@@ -765,7 +768,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("WishlistID");
 
-                    b.ToTable("WishedItem", (string)null);
+                    b.ToTable("WishedItem");
                 });
 
             modelBuilder.Entity("Batates.Models.Wishlist", b =>
@@ -784,7 +787,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("ApplicationUserID");
 
-                    b.ToTable("Wishlists", (string)null);
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("CategoryRestaurant", b =>
@@ -799,7 +802,7 @@ namespace Batates.Data.Migrations
 
                     b.HasIndex("RestaurantsID");
 
-                    b.ToTable("CategoryRestaurant", (string)null);
+                    b.ToTable("CategoryRestaurant");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
