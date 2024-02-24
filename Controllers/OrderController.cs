@@ -90,7 +90,7 @@ namespace Batates.Controllers
         public IActionResult GetAllOrders()
         {
             var result = OrderRepo.GetAll(o => o.ApplicationUser).Select(o => new { o.ID, orderDate = o.OrderDate.ToString(), o.State, o.ApplicationUser.UserName, o.TotalPrice }).ToList();
-            return Json(result);
+            return Json(result); 
         }
 
         #endregion
@@ -123,7 +123,9 @@ namespace Batates.Controllers
             uOrder.TotalPrice = totalPrice;
             OrderRepo.Create(uOrder);
 
-            return RedirectToAction("Index");
+            // TODO: clear cart here
+
+            return RedirectToAction("History");
         }
 
     }

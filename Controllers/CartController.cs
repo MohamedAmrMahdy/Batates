@@ -20,8 +20,9 @@ namespace Batates.Controllers
             ProductRepo = productRepo;
             CartProductRepo = cpRepo;
         }
+                
         [HttpPost]
-        public IActionResult Add(int id, int restid)
+        public IActionResult Add(int id)
         {
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //asp-area="Identity" asp-page="/Account/Manage/Index"
