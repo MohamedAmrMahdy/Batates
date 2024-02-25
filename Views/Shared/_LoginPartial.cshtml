@@ -6,25 +6,25 @@
 @if (SignInManager.IsSignedIn(User))
 {
         <li class="nav-item dropdown">
-            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               &nbsp;  @User.Identity?.Name!
             </a>
             <ul class="dropdown-menu">
                 <li class="nav-item">
-                    <a class="dropdown-item text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">&nbsp; Go to Profile</a>
+                    <a class="dropdown-item " asp-area="Identity" asp-page="/Account/Manage/Index">&nbsp; Go to Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="dropdown-item text-dark" href="#">&nbsp; Carts</a>
+                    <a class="dropdown-item " href="#">&nbsp; Carts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="dropdown-item text-dark" asp-controller="Orders" asp-action="Index">&nbsp; Orders</a>
+                    <a class="dropdown-item " asp-controller="Orders" asp-action="Index">&nbsp; Orders</a>
                 </li>
               @*   <li><hr class="dropdown-divider"></li> *@
             </ul>
         </li>
        <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            <button  type="submit" class="nav-link btn btn-link ">Logout</button>
         </form>
     </li>
 }
