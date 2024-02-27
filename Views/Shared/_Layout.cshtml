@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand layout_header_title me-5" asp-area="" asp-controller="Home" asp-action="Index"><img src="/images/batates.png" class="layout_header_logo" alt=""> Batates</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,34 +24,36 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door-fill"></i>&nbsp; Home</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door-fill"></i>&nbsp; Home</a>
                         </li>
 
                         @if (!User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-hdd-rack-fill"></i>&nbsp; Content Managment
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark" asp-controller="Category" asp-action="getall"><i class="bi bi-files"></i>&nbsp; Category</a>
+                                        <a class="dropdown-item" asp-controller="Category" asp-action="getall"><i class="bi bi-files"></i>&nbsp; Category</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark" asp-controller="Product" asp-action="Index"><i class="bi bi-cookie"></i>&nbsp; Product</a>
+                                        <a class="dropdown-item" asp-controller="Product" asp-action="Index"><i class="bi bi-cookie"></i>&nbsp; Product</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark" asp-controller="Restaurant" asp-action="Index"><i class="bi bi-building"></i>&nbsp; Restaurant</a>
-                                    </li>  
+                                        <a class="dropdown-item" asp-controller="Restaurant" asp-action="Index"><i class="bi bi-building"></i>&nbsp; Restaurant</a>
+
                                     <li class="nav-item">
-                                        <a class="dropdown-item text-dark" asp-controller="Order" asp-action="Index"><i class="bi bi-cart3"></i>&nbsp; Orders</a>
+                                        <a class="dropdown-item" asp-controller="Order" asp-action="Index"><i class="bi bi-cart3"></i>&nbsp; Orders</a>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
                         }
 
                     </ul>
+
+                    <button id="theme-toggle-button" class="btn btn-primary">Toggle Theme</button>
 
                     <partial name="_LoginPartial" />
                 </div>
@@ -76,5 +78,34 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.0/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+     
+        function setTheme() {
+            var htmlElement = document.querySelector('html');
+            var currentTheme = localStorage.getItem('theme') || 'light';
+            htmlElement.setAttribute('data-bs-theme', currentTheme);
+        }
+
+    
+        function toggleTheme() {
+            var htmlElement = document.querySelector('html');
+            var currentTheme = htmlElement.getAttribute('data-bs-theme');
+            var newTheme = (currentTheme === 'light') ? 'dark' : 'light';
+            htmlElement.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme); 
+        }
+
+       
+        document.getElementById('theme-toggle-button').addEventListener('click', function () {
+            toggleTheme();
+        });
+
+       
+        window.addEventListener('load', function () {
+            setTheme();
+        });
+    </script>
+
 </body>
 </html>
