@@ -20,8 +20,9 @@ namespace Batates.Controllers
             ProductRepo = productRepo;
             CartProductRepo = cpRepo;
         }
+                
         [HttpPost]
-        public IActionResult Add(int id, int restid)
+        public IActionResult Add(int id)
         {
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //asp-area="Identity" asp-page="/Account/Manage/Index"
@@ -120,6 +121,16 @@ namespace Batates.Controllers
             }
             ViewBag.Total = total;
             return View(cartProducts);
+        }
+
+        [HttpGet]
+        public IActionResult RemoveItem(CartProduct cp)
+        {
+            var CartItem = CartProductRepo.Get(cp => cp.ID == cp.ID);
+            if (CartItem != null)
+                CartProductRepo.Delete(CartItem);
+            
+            return RedirectToAction("Overview");
         }
 
     }

@@ -1,0 +1,94 @@
+﻿@using Batates.Models.Enums
+@model IEnumerable<Batates.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card shadow border-1 my-4">
+    <div class="card-header bg-primary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Order List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+
+        <table id="OrderTable" class="table table-bordered  text-center ">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.State)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplicationUser.Fullname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalPrice)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Order order in Model)
+                {
+                    <tr>
+                        <td class="text-center align-middle">
+                            @Html.DisplayFor(modelItem => order.ID)
+                        </td>
+                        <td class="text-center align-middle">
+                            @Html.DisplayFor(modelItem => order.OrderDate)
+                        </td>
+                        <td class="text-center align-middle">
+
+                            @{
+                                string pillStyle = "";
+                            }
+                            @switch (order.State)
+                            {
+                                case OrderState.Completed:
+                                    pillStyle = "badge rounded-pill text-bg-success";
+                                    break;
+                                case OrderState.Preparing:
+                                    pillStyle = "badge rounded-pill text-bg-warning";
+                                    break;
+                                case OrderState.Delivering:
+                                    pillStyle = "badge rounded-pill text-bg-info";
+                                    break;
+                            }
+                            <span class="@pillStyle fs-6"> @Html.DisplayFor(modelItem => order.State)</span>
+                        </td>
+                        <td class="text-center align-middle">
+                            @Html.DisplayFor(modelItem => order.ApplicationUser.UserName)
+                        </td>
+                        <td class="text-center align-middle">
+                            @Html.DisplayFor(modelItem => order.TotalPrice)
+                        </td>
+                        <td>
+                            <a asp-action="edit" asp-route-id="@order.ID" asp-controller="Order" class="btn btn-primary  "> <i class="bi bi-pencil-square"></i> Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+@* @section Scripts
+{
+
+    <script src="~/js/order.js"></script>
+} *@

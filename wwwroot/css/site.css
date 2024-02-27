@@ -8,6 +8,11 @@
     box-shadow: 0 -2px;
 }*/
 
+/* Import Google Font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+.form-check-input:checked[type=radio] {
+   border: 2px solid white;
+}
 .dt-length label {
     display: none;
 }

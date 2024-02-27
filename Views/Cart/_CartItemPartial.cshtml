@@ -16,10 +16,29 @@
             </div>
             <div class="d-flex flex-row align-items-center">
                 <div style="width: 50px;">
-                    <h5 class="fw-normal mb-0">@Model.Quantity</h5>
+                    @* <h5 class="fw-normal mb-0">@Model.Quantity</h5> *@
+@*                     <button class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                        <i class="bi bi-dash-circle"></i>
+                    </button> *@
+
+@*                     <input id="form1" min="1" name="quantity" value="@Model.Quantity" type="number"
+                           class="form-control form-control-sm" /> *@
+                    @Html.HiddenFor(m=>m.ID)
+                    @Html.EditorFor(m => m.Quantity, new { htmlAttributes = new { @min = "1", @max= "25", @class = "form-control form-control-sm" } })
+
+@*                     <button class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                        <i class="bi bi-plus-circle"></i>
+                    </button> *@
+
+                </div>
+                <div style="width: 80px;" class="m-2">
+                    <h5 class="mb-0">@Model.Product.Price</h5>
                 </div>
                 <div style="width: 80px;">
-                    <h5 class="mb-0">@Model.Product.Price</h5>
+                    @* <button class="btn btn-outline-danger" onclick="removeItem(@Model.ID)"> <i class="bi bi-trash"></i></button> *@
+                    <a asp-action="RemoveItem" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
                 </div>
             </div>
         </div>

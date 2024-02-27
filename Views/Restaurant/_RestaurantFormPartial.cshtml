@@ -1,12 +1,14 @@
 ﻿@model Batates.Models.Restaurant
 @{
     bool IsEditable = (bool)ViewData["IsEditable"];
+    List<Category> cats = ViewBag.cat as List<Category>;
+
 }
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<input type="hidden" asp-for="ID" />
+
 <div class="form-floating mb-3 col-12">
     <input asp-for="Name" disabled="@(!IsEditable)" class="form-control" aria-required="true" placeholder="Name"></input>
-    <label asp-for="Name" class="ms-2 text-muted" >Name</label>
+    <label asp-for="Name" class="ms-2 text-muted">Name</label>
     <span asp-validation-for="Name" class="text-danger"></span>
 </div>
 <div class="form-floating mb-3 col-12">
@@ -24,6 +26,26 @@
     </select>
     <label asp-for="State" class="ms-2 text-muted">State</label>
     <span asp-validation-for="State" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <select name="cates" class="form-select" multiple aria-label="Multiple select example">
+        @foreach (Category cat in cats)
+        {
+            if (Model?.Categories?.Contains(cat)?? false)
+            {
+                <option selected value="@cat.ID">@cat.Name</option>
+
+            }
+            else
+            {
+                
+            <option value="@cat.ID">@cat.Name</option>
+            }
+
+        }
+    </select>
+    <label asp-for="Categories" class="ms-2 text-muted">Categories</label>
+    <span asp-validation-for="Categories" class="text-danger"></span>
 </div>
 <div class="form-floating mb-3 col-12">
     <input asp-for="ContactNo" disabled="@(!IsEditable)" class="form-control" placeholder="ContactNo"></input>

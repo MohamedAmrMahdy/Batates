@@ -7,6 +7,7 @@ namespace Batates.Models
     public enum PaymentMethod
     {
         COD,
+        CC,
         ExternalPayment
     }
     public class Order
@@ -15,6 +16,7 @@ namespace Batates.Models
         public int ID { get; set; }
         [Required]
         public DateTime OrderDate { get; set; }
+        [DataType( DataType.Currency)]
         public double TotalPrice { get; set; }
         [Required]
         [EnumDataType(typeof(PaymentMethod))]
@@ -23,8 +25,9 @@ namespace Batates.Models
         public string ApplicationUserID { get; set; }
         [EnumDataType(typeof(OrderState))]
         public OrderState State { get; set; }
-        public virtual List<Product>? Products { get; }
-        public virtual List<OrderProduct>? OrderProducts { get; }
+        public string? ExtraDetails { get; set; }
+        public virtual List<Product>? Products { get; set; }
+        public virtual List<OrderProduct>? OrderProducts { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
 

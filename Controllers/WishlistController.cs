@@ -78,11 +78,11 @@ namespace Batates.Controllers
                         var WishProduct=WishProducts.FirstOrDefault(cp => cp.Product.ID==ProductToAdd.ID);
                         if(WishProduct != null)
                         {
-                            return Json(new { success = true, message = "Exist" });
+                            return Json(new { success = true, message = $"Product {ProductToAdd.Name} already exists in Wishlist!" });
                         }
                         uWish.WishedProducts.Add(new WishedItem() { Product = ProductToAdd } );
                         repo.Update(uWish );
-                        return Json(new { success = true, message = "Added" });
+                        return Json(new { success = true, message = $"Added {ProductToAdd.Name} to Wishlist!" });
                     }
 
                 }
@@ -94,7 +94,7 @@ namespace Batates.Controllers
                 var WishProduct = new WishedItem() { Product = ProductToAdd };
                 uWish = new Wishlist() { ApplicationUserID = userid, WishedProducts = new List<WishedItem>() { WishProduct } };
                 repo.Create(uWish);
-                return Json(new { Success = true, message = $"Added {ProductToAdd.Name} to Cart!" });
+                return Json(new { Success = true, message = $"Added {ProductToAdd.Name} to Wishlist!" });
             }
 
             return Json(new { success = false, message = "Invalid" });

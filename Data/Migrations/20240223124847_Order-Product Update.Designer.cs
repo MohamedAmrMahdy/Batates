@@ -4,6 +4,7 @@ using Batates.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Batates.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240223124847_Order-Product Update")]
+    partial class OrderProductUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,15 +113,15 @@ namespace Batates.Data.Migrations
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
                             CartID = 0,
-                            ConcurrencyStamp = "0ce61424-341f-4aa4-b03f-a17743f5418f",
+                            ConcurrencyStamp = "1ce08834-cb78-450a-b886-2ad79d010dc6",
                             Email = "admin@batates.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BATATES.COM",
                             NormalizedUserName = "ADMIN@BATATES",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGtGphzOE+WNMJZmmUDV4Z/M4KMWyv8b+AATnfllo/oam+MKlvcbPZ+1t0Q/nOSB4A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELXxDzWyUojni1dXdGN0V7YjEb0Wa9LKTbPW0EZcGE1oOU3hQGwm+AtQ3QiLWanzqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "89840733-70f7-4720-9a8c-f7b1d9dd8b26",
+                            SecurityStamp = "50a4f49b-2743-48e4-bb59-31ba7490f0f6",
                             TwoFactorEnabled = false,
                             UserName = "admin@batates.com"
                         },
@@ -127,15 +130,15 @@ namespace Batates.Data.Migrations
                             Id = "2097f2ca-02a2-4b4f-97a0-1a7679151295",
                             AccessFailedCount = 0,
                             CartID = 0,
-                            ConcurrencyStamp = "1cec61c8-cf8d-4e3c-a47a-3bce5f3ab88c",
+                            ConcurrencyStamp = "450b1ef2-1859-4242-a395-9d67c24d3ad4",
                             Email = "customer@batates.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER@BATATES.COM",
                             NormalizedUserName = "CUSTOMER@BATATES",
-                            PasswordHash = "AQAAAAIAAYagAAAAECcE542/Lh2LzeNcO2Tq4p0dO7tKRKdBnwTNEH1yffRI06oGMNVzX22ROQswflBZGg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEErMcJC5qRz7VdNyxuYBr3CAzD0I/kS/TBBAXxs9frhjB66dX27V4pS2eRMijm0PnA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3992378f-f48b-4481-9cd9-195982e917f7",
+                            SecurityStamp = "b8414d85-5199-49ca-8a4e-9cb2efe2f44d",
                             TwoFactorEnabled = false,
                             UserName = "customer@batates.com"
                         });
@@ -574,9 +577,6 @@ namespace Batates.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Rating")
-                        .HasColumnType("float");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
