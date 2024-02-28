@@ -53,7 +53,10 @@
 
                     </ul>
 
-                    <button id="theme-toggle-button" class="btn btn-primary">Toggle Theme</button>
+                    <button id="theme-toggle-button" class="btn btn-primary">
+                        <i id="theme-icon" class="bi bi-moon"></i>
+                        <i id="theme-icon" class="bi bi-sun-fill" style="display: none;"></i>
+                    </button>
 
                     <partial name="_LoginPartial" />
                 </div>
@@ -80,29 +83,40 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
-     
         function setTheme() {
             var htmlElement = document.querySelector('html');
             var currentTheme = localStorage.getItem('theme') || 'light';
             htmlElement.setAttribute('data-bs-theme', currentTheme);
+            toggleIcon(currentTheme);
         }
 
-    
+        function toggleIcon(theme) {
+            var moonIcon = document.querySelector('#theme-icon.bi-moon');
+            var sunIcon = document.querySelector('#theme-icon.bi-sun-fill');
+
+            if (theme === 'dark') {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'inline';
+            } else {
+                moonIcon.style.display = 'inline';
+                sunIcon.style.display = 'none';
+            }
+        }
+
         function toggleTheme() {
             var htmlElement = document.querySelector('html');
             var currentTheme = htmlElement.getAttribute('data-bs-theme');
             var newTheme = (currentTheme === 'light') ? 'dark' : 'light';
             htmlElement.setAttribute('data-bs-theme', newTheme);
-            localStorage.setItem('theme', newTheme); 
+            localStorage.setItem('theme', newTheme);
+            toggleIcon(newTheme);
         }
 
-       
         document.getElementById('theme-toggle-button').addEventListener('click', function () {
             toggleTheme();
         });
 
-       
-        window.addEventListener('load', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             setTheme();
         });
     </script>
