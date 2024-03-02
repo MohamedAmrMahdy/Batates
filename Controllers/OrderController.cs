@@ -127,16 +127,22 @@ namespace Batates.Controllers
                 totalPrice += uOrder.OrderProducts[i].Product.Price * uOrder.OrderProducts[i].Quantity;
             }
             uOrder.TotalPrice = totalPrice;
-            OrderRepo.Create(uOrder);
+            if (uOrder.TotalPrice > 0)
+            {
 
-            // Clear Cart
-            var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
-            List<CartProduct> CardProductList = uCart.Products;
-            uCart.Products = new List<CartProduct>();
-            CartRepo.Update(uCart);
-            CardProductList.ForEach(p => CartProductRepo.Delete(p));
+                OrderRepo.Create(uOrder);
 
-            return RedirectToAction("History");
+                // Clear Cart
+                var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
+                List<CartProduct> CardProductList = uCart.Products;
+                uCart.Products = new List<CartProduct>();
+                CartRepo.Update(uCart);
+                CardProductList.ForEach(p => CartProductRepo.Delete(p));
+
+                return RedirectToAction("History");
+            }
+            else
+                return RedirectToAction("Overview", "Cart", new { area = "" });
         }
 
     }
