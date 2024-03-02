@@ -54,7 +54,7 @@ namespace Batates.Controllers
           
             if(cates?.Count ==0)
             {
-                ModelState.AddModelError("Categories", "please select at list single category");
+                ModelState.AddModelError("Categories", "please select atleast single category");
             }
 
             if (ModelState.IsValid)
@@ -70,6 +70,14 @@ namespace Batates.Controllers
                     restaurantFromDB.Categories.Clear();
                 }
                 restaurantFromDB.Categories = categories;
+                restaurantFromDB.Name = restaurant.Name;
+                restaurantFromDB.Description = restaurant.Description;
+                restaurantFromDB.locationLong = restaurant.locationLong;
+                restaurantFromDB.locationLat = restaurant.locationLat;
+                restaurantFromDB.ContactNo = restaurant.ContactNo;
+                restaurantFromDB.ImageURL = restaurant.ImageURL;
+                restaurantFromDB.State = restaurant.State;
+
                 int updatedRestaurant = repo.Update(restaurantFromDB);
                 TempData["success"] = "restaurant updated successfully";
                 return RedirectToAction("index");
