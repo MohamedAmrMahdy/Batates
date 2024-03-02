@@ -4,6 +4,11 @@
     List<Category> cats = ViewBag.cat as List<Category>;
 
 }
+<div class="form-floating mb-3 col-12">
+    <input asp-for="Name" disabled="@(!IsEditable)" class="form-control" aria-required="true" placeholder="Name" />
+    <label asp-for="Name" class="ms-2 text-muted">Name</label>
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 <div class="form-floating mb-3 col-12">
@@ -17,9 +22,10 @@
     <span asp-validation-for="Description" class="text-danger"></span>
 </div>
 <div class="form-floating mb-3 col-12">
-    <input asp-for="ImageURL" disabled="@(!IsEditable)" class="form-control" placeholder="ImageURL"></input>
+    <input asp-for="ImageURL" id="imageInput" disabled="@(!IsEditable)" class="form-control" placeholder="ImageURL"></input>
     <label asp-for="ImageURL" class="ms-2 text-muted">ImageURL</label>
     <span asp-validation-for="ImageURL" class="text-danger"></span>
+    <button type="button" id="updateImageButton" class="btn btn-primary mt-2">Upload Image</button>
 </div>
 <div class="form-floating mb-3 col-12">
     <input asp-for="locationLat" disabled="@(!IsEditable)" class="form-control" placeholder="locationLat"></input>
@@ -30,6 +36,10 @@
     <input asp-for="locationLong" disabled="@(!IsEditable)" class="form-control" placeholder="locationLong"></input>
     <label asp-for="locationLong" class="ms-2 text-muted">location Longitude</label>
     <span asp-validation-for="locationLong" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <div id="map" style="height: 400px;"></div>
+    <button type="button" id="updateLocationButton" class="btn btn-primary mt-2">Update Location</button>
 </div>
 <div class="form-floating mb-3 col-12">
     <select asp-for="State" disabled="@(!IsEditable)" class="form-control" placeholder="State" asp-items="@Html.GetEnumSelectList<State>()">

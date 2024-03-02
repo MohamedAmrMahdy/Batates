@@ -4,6 +4,9 @@
     ViewData["Title"] = "Edit";
     ViewData["IsEditable"] = true;
 }
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<!-- Include Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <div class="col-8 mx-auto">
     <div class="card shadow border-1 my-4">
@@ -37,4 +40,54 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        document.getElementById('updateImageButton').addEventListener('click', function () {
+            console.log("Clicked lol");
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function (event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('key', "4d196b587c2bc1f1fcae2d0f22973a7e")
+                    fetch('https://api.imgbb.com/1/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('imageInput').value = data.data.display_url;
+                            } else {
+                                alert('Failed to upload image. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                }
+            };
+            input.click();
+        });
+                document.addEventListener('DOMContentLoaded', function () {
+                    console.log("yep");
+                    var map = L.map('map').setView([0, 0], 2); 
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); 
+
+                    var marker = L.marker([0, 0], { draggable: true }).addTo(map); 
+
+                    document.getElementById('updateLocationButton').addEventListener('click', function () {
+                        var latInput = document.getElementById('locationLat');
+                        var lngInput = document.getElementById('locationLong');
+
+                        latInput.value = marker.getLatLng().lat.toFixed(6);
+                        lngInput.value = marker.getLatLng().lng.toFixed(6);
+                    });
+                });
+
+    </script>
 }

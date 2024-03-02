@@ -14,9 +14,10 @@
     <span asp-validation-for="Description" class="text-danger"></span>
 </div>
 <div class="form-floating mb-3 col-12">
-    <input asp-for="ImageURL" class="form-control " aria-required="true" placeholder="Image" />
+    <input asp-for="ImageURL" id="imageInput" class="form-control " aria-required="true" placeholder="Image" />
     <label asp-for="ImageURL" class="ms-2 text-muted">Image</label>
     <span asp-validation-for="ImageURL" class="text-danger"></span>
+    <button type="button" id="updateImageButton" class="btn btn-primary mt-2">Upload Image</button>
 </div>
 
 

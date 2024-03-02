@@ -37,4 +37,37 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.getElementById('updateImageButton').addEventListener('click', function () {
+            console.log("Clicked lol");
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function (event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('key', "4d196b587c2bc1f1fcae2d0f22973a7e")
+                    fetch('https://api.imgbb.com/1/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('imageInput').value = data.data.display_url;
+                            } else {
+                                alert('Failed to upload image. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                }
+            };
+            input.click();
+        });
+    </script>
 }
