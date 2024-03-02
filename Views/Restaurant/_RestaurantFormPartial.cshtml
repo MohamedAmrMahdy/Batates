@@ -22,6 +22,16 @@
     <span asp-validation-for="ImageURL" class="text-danger"></span>
 </div>
 <div class="form-floating mb-3 col-12">
+    <input asp-for="locationLat" disabled="@(!IsEditable)" class="form-control" placeholder="locationLat"></input>
+    <label asp-for="locationLat" class="ms-2 text-muted">location Latitude</label>
+    <span asp-validation-for="locationLat" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
+    <input asp-for="locationLong" disabled="@(!IsEditable)" class="form-control" placeholder="locationLong"></input>
+    <label asp-for="locationLong" class="ms-2 text-muted">location Longitude</label>
+    <span asp-validation-for="locationLong" class="text-danger"></span>
+</div>
+<div class="form-floating mb-3 col-12">
     <select asp-for="State" disabled="@(!IsEditable)" class="form-control" placeholder="State" asp-items="@Html.GetEnumSelectList<State>()">
     </select>
     <label asp-for="State" class="ms-2 text-muted">State</label>

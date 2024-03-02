@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Batates.Models
 {
@@ -18,6 +19,8 @@ namespace Batates.Models
         [Required]
         public string Description { get; set; }
         public string? ImageURL { get; set; }
+        public float? locationLat { get; set; }
+        public float? locationLong { get; set; }
         public double? Rating { get; set; }
         [Required]
         public State State { get; set; }
