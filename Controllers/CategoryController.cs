@@ -1,9 +1,11 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Batates.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
 

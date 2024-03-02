@@ -1,11 +1,13 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
 using Batates.Repo.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Batates.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RestaurantController : Controller
     {
         private readonly IRestaurantRepository repo;

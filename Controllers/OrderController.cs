@@ -1,5 +1,6 @@
 ﻿using Batates.Models;
 using Batates.Repo.IRepo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -12,15 +13,18 @@ namespace Batates.Controllers
         private readonly IOrdersRepository OrderRepo;
         private readonly IProductRepository ProductRepo;
         private readonly IOrderProductRepository orderProductRepository;
+        private readonly ICartProductRepository CartProductRepo;
+        private readonly ICartRepository CartRepo;
 
-        public OrderController(IOrdersRepository orderRepo, IProductRepository productRepo, IOrderProductRepository orderProductRepository)
+        public OrderController(IOrdersRepository orderRepo, IProductRepository productRepo, IOrderProductRepository orderProductRepository, ICartRepository cartRepo, ICartProductRepository cpRepo)
         {
             OrderRepo = orderRepo;
             ProductRepo = productRepo;
             this.orderProductRepository = orderProductRepository;
+            CartRepo = cartRepo;
+            CartProductRepo = cpRepo;
 
         }
-
 
         [HttpGet]
         public IActionResult History()
@@ -38,6 +42,7 @@ namespace Batates.Controllers
 
             }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
 
         public IActionResult Edit(int id)
@@ -62,6 +67,7 @@ namespace Batates.Controllers
 
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(Order order)
         {
@@ -123,7 +129,12 @@ namespace Batates.Controllers
             uOrder.TotalPrice = totalPrice;
             OrderRepo.Create(uOrder);
 
-            // TODO: clear cart here
+            // Clear Cart
+            var uCart = CartRepo.Get(c => c.ApplicationUserID == userid, c => c.Products);
+            List<CartProduct> CardProductList = uCart.Products;
+            uCart.Products = new List<CartProduct>();
+            CartRepo.Update(uCart);
+            CardProductList.ForEach(p => CartProductRepo.Delete(p));
 
             return RedirectToAction("History");
         }
